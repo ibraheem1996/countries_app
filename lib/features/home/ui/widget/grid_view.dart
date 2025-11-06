@@ -1,6 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../../../../coor/dependency/dependency_get_it.dart';
+import '../../../country_details/logic/details_cubit.dart';
+import '../../../country_details/ui/country_details_view.dart';
 import '../../data/model/modele.dart';
 
 class GridViewBuilder extends StatelessWidget {
@@ -23,22 +27,36 @@ class GridViewBuilder extends StatelessWidget {
         final country = countries[index];
         final imageUrl = country.flags?.png ?? country.flags?.svg;
 
-        return Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(18),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black12.withValues(alpha: 0.7),
-                blurRadius: 14,
-                spreadRadius: 1,
-                offset: const Offset(0, 5),
+        return GestureDetector(
+          onTap: () {
+            if (country.cca3 == null) return;
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => BlocProvider(
+                  create: (context) => getIt<DetailsCubit>(),
+                  child: CountryDetails(cca3: country.cca3!),
+                ),
               ),
-            ],
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [_image(imageUrl), _nameAndCode(country)],
+            );
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(18),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black12.withValues(alpha: 0.7),
+                  blurRadius: 14,
+                  spreadRadius: 1,
+                  offset: const Offset(0, 5),
+                ),
+              ],
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [_image(imageUrl), _nameAndCode(country)],
+            ),
           ),
         );
       },

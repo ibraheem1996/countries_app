@@ -14,10 +14,10 @@ class DioFactory {
     if (_dio != null) return _dio!;
 
     final options = BaseOptions(
-      baseUrl: ConstantsApi.baseUrl,
+      baseUrl: ApiConstants.baseUrl,
       connectTimeout: const Duration(seconds: 30),
       receiveTimeout: const Duration(seconds: 30),
-      headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+      // headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
     );
 
     _dio = Dio(options);
