@@ -35,7 +35,7 @@ class GridViewBuilder extends StatelessWidget {
               MaterialPageRoute(
                 builder: (context) => BlocProvider(
                   create: (context) => getIt<DetailsCubit>(),
-                  child: CountryDetails(cca3: country.cca3!),
+                  child: CountryDetailsPage(cca3: country.cca3!),
                 ),
               ),
             );
