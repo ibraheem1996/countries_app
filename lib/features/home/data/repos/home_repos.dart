@@ -7,7 +7,7 @@ class HomeRepos {
   final ApiServices _apiServices;
 
   HomeRepos({ required ApiServices apiServices }) : _apiServices = apiServices ;
-Future <ApiResult<List<HomeModele>>> getHomeData()async{
+Future <ApiResult<List<HomeModel>>> getHomeData()async{
     try{
        final result =await _apiServices.getHomeData();
        return ApiResult.success( result);

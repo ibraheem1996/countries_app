@@ -8,22 +8,19 @@ import '../../../country_details/ui/country_details_view.dart';
 import '../../data/model/modele.dart';
 
 class GridViewBuilder extends StatelessWidget {
-  final List<HomeModele> countries;
+  final List<HomeModel> countries;
   const GridViewBuilder({super.key, required this.countries});
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      physics: const BouncingScrollPhysics(),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-      itemCount: countries.length,
+    return SliverGrid(
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: 20,
         mainAxisSpacing: 20,
         childAspectRatio: 0.85,
       ),
-      itemBuilder: (context, index) {
+      delegate: SliverChildBuilderDelegate((context, index) {
         final country = countries[index];
         final imageUrl = country.flags?.png ?? country.flags?.svg;
 
@@ -59,11 +56,11 @@ class GridViewBuilder extends StatelessWidget {
             ),
           ),
         );
-      },
+      }, childCount: countries.length),
     );
   }
 
-  Expanded _nameAndCode(HomeModele country) {
+  Expanded _nameAndCode(HomeModel country) {
     return Expanded(
       flex: 3,
       child: Container(

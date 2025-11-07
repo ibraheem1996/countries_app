@@ -11,7 +11,7 @@ abstract class ApiServices {
   factory ApiServices(Dio dio, {String baseUrl}) = _ApiServices;
 
   @GET(ApiConstants.allCountries)
-  Future<List<HomeModele>> getHomeData();
+  Future<List<HomeModel>> getHomeData();
 
   @GET("${ApiConstants.detailsCountry}/{cca3}")
   Future<List<DetailsModel>> detailsCountry(@Path('cca3') String cca3);

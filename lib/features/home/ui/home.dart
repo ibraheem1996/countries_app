@@ -4,6 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:countries/features/home/logic/home_cubit.dart';
 import 'package:countries/features/home/data/model/modele.dart';
 
+import 'widget/sliver_app_bar.dart';
+
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -21,7 +24,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Countries 🌍"), centerTitle: true),
       body: BlocConsumer<HomeCubit, HomeState>(
         listener: (context, state) {
           state.mapOrNull(
@@ -38,9 +40,14 @@ class _HomePageState extends State<HomePage> {
           }
 
           if (state is Loaded) {
-            final List<HomeModele> countries = state.modeles;
+            final List<HomeModel> countries = state.modeles;
 
-            return GridViewBuilder(countries: countries);
+            return CustomScrollView(
+              slivers: [
+                CustomSliverAppBar(onSearchChanged: (value) {}),
+                GridViewBuilder(countries: countries),
+              ],
+            );
           }
 
           if (state is Error) {
