@@ -22,12 +22,12 @@ class _ApiServices implements ApiServices {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<List<HomeModele>> getHomeData() async {
+  Future<List<HomeModel>> getHomeData() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<HomeModele>>(
+    final _options = _setStreamType<List<HomeModel>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -38,10 +38,10 @@ class _ApiServices implements ApiServices {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<List<dynamic>>(_options);
-    late List<HomeModele> _value;
+    late List<HomeModel> _value;
     try {
       _value = _result.data!
-          .map((dynamic i) => HomeModele.fromJson(i as Map<String, dynamic>))
+          .map((dynamic i) => HomeModel.fromJson(i as Map<String, dynamic>))
           .toList();
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);

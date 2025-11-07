@@ -2,45 +2,37 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'modele.g.dart';
 
 @JsonSerializable()
-class HomeModele {
-  final Flags? flags;
-  final CoatOfArms? coatOfArms;
+class HomeModel {
   final Name? name;
+  final Flags? flags;
+  final String? cca2;
   final String? cca3;
-  final Map<String, Translation>? translations;
+  final String? region;
+  final String? subregion;
+  final List<String>? capital;
+  final Map<String, String>? languages;
+  final bool? independent;
+  final int? population;
+  final double? area;
 
-  HomeModele({this.flags, this.coatOfArms, this.name, this.cca3, this.translations});
+  HomeModel({
+    this.name,
+    this.flags,
+    this.cca2,
+    this.cca3,
+    this.region,
+    this.subregion,
+    this.capital,
+    this.languages,
+    this.independent,
+    this.population,
+    this.area,
+  });
 
-  factory HomeModele.fromJson(Map<String, dynamic> json) => _$HomeModeleFromJson(json);
+  factory HomeModel.fromJson(Map<String, dynamic> json) => _$HomeModelFromJson(json);
 }
 
-// ----------------------------------------------------------
-
-@JsonSerializable()
-class Flags {
-  final String? png;
-  final String? svg;
-  final String? alt;
-
-  Flags({this.png, this.svg, this.alt});
-
-  factory Flags.fromJson(Map<String, dynamic> json) => _$FlagsFromJson(json);
-}
-
-// ----------------------------------------------------------
-
-@JsonSerializable()
-class CoatOfArms {
-  final String? png;
-  final String? svg;
-
-  CoatOfArms({this.png, this.svg});
-
-  factory CoatOfArms.fromJson(Map<String, dynamic> json) => _$CoatOfArmsFromJson(json);
-}
-
-// ----------------------------------------------------------
-
+// -------------------- Name --------------------
 @JsonSerializable()
 class Name {
   final String? common;
@@ -52,8 +44,7 @@ class Name {
   factory Name.fromJson(Map<String, dynamic> json) => _$NameFromJson(json);
 }
 
-// ----------------------------------------------------------
-
+// -------------------- NativeName --------------------
 @JsonSerializable()
 class NativeName {
   final String? official;
@@ -64,14 +55,14 @@ class NativeName {
   factory NativeName.fromJson(Map<String, dynamic> json) => _$NativeNameFromJson(json);
 }
 
-// ----------------------------------------------------------
-
+// -------------------- Flags --------------------
 @JsonSerializable()
-class Translation {
-  final String? official;
-  final String? common;
+class Flags {
+  final String? png;
+  final String? svg;
+  final String? alt;
 
-  Translation({this.official, this.common});
+  Flags({this.png, this.svg, this.alt});
 
-  factory Translation.fromJson(Map<String, dynamic> json) => _$TranslationFromJson(json);
+  factory Flags.fromJson(Map<String, dynamic> json) => _$FlagsFromJson(json);
 }

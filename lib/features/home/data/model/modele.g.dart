@@ -6,48 +6,41 @@ part of 'modele.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-HomeModele _$HomeModeleFromJson(Map<String, dynamic> json) => HomeModele(
-  flags: json['flags'] == null
-      ? null
-      : Flags.fromJson(json['flags'] as Map<String, dynamic>),
-  coatOfArms: json['coatOfArms'] == null
-      ? null
-      : CoatOfArms.fromJson(json['coatOfArms'] as Map<String, dynamic>),
+HomeModel _$HomeModelFromJson(Map<String, dynamic> json) => HomeModel(
   name: json['name'] == null
       ? null
       : Name.fromJson(json['name'] as Map<String, dynamic>),
+  flags: json['flags'] == null
+      ? null
+      : Flags.fromJson(json['flags'] as Map<String, dynamic>),
+  cca2: json['cca2'] as String?,
   cca3: json['cca3'] as String?,
-  translations: (json['translations'] as Map<String, dynamic>?)?.map(
-    (k, e) => MapEntry(k, Translation.fromJson(e as Map<String, dynamic>)),
+  region: json['region'] as String?,
+  subregion: json['subregion'] as String?,
+  capital: (json['capital'] as List<dynamic>?)
+      ?.map((e) => e as String)
+      .toList(),
+  languages: (json['languages'] as Map<String, dynamic>?)?.map(
+    (k, e) => MapEntry(k, e as String),
   ),
+  independent: json['independent'] as bool?,
+  population: (json['population'] as num?)?.toInt(),
+  area: (json['area'] as num?)?.toDouble(),
 );
 
-Map<String, dynamic> _$HomeModeleToJson(HomeModele instance) =>
-    <String, dynamic>{
-      'flags': instance.flags,
-      'coatOfArms': instance.coatOfArms,
-      'name': instance.name,
-      'cca3': instance.cca3,
-      'translations': instance.translations,
-    };
-
-Flags _$FlagsFromJson(Map<String, dynamic> json) => Flags(
-  png: json['png'] as String?,
-  svg: json['svg'] as String?,
-  alt: json['alt'] as String?,
-);
-
-Map<String, dynamic> _$FlagsToJson(Flags instance) => <String, dynamic>{
-  'png': instance.png,
-  'svg': instance.svg,
-  'alt': instance.alt,
+Map<String, dynamic> _$HomeModelToJson(HomeModel instance) => <String, dynamic>{
+  'name': instance.name,
+  'flags': instance.flags,
+  'cca2': instance.cca2,
+  'cca3': instance.cca3,
+  'region': instance.region,
+  'subregion': instance.subregion,
+  'capital': instance.capital,
+  'languages': instance.languages,
+  'independent': instance.independent,
+  'population': instance.population,
+  'area': instance.area,
 };
-
-CoatOfArms _$CoatOfArmsFromJson(Map<String, dynamic> json) =>
-    CoatOfArms(png: json['png'] as String?, svg: json['svg'] as String?);
-
-Map<String, dynamic> _$CoatOfArmsToJson(CoatOfArms instance) =>
-    <String, dynamic>{'png': instance.png, 'svg': instance.svg};
 
 Name _$NameFromJson(Map<String, dynamic> json) => Name(
   common: json['common'] as String?,
@@ -71,10 +64,14 @@ NativeName _$NativeNameFromJson(Map<String, dynamic> json) => NativeName(
 Map<String, dynamic> _$NativeNameToJson(NativeName instance) =>
     <String, dynamic>{'official': instance.official, 'common': instance.common};
 
-Translation _$TranslationFromJson(Map<String, dynamic> json) => Translation(
-  official: json['official'] as String?,
-  common: json['common'] as String?,
+Flags _$FlagsFromJson(Map<String, dynamic> json) => Flags(
+  png: json['png'] as String?,
+  svg: json['svg'] as String?,
+  alt: json['alt'] as String?,
 );
 
-Map<String, dynamic> _$TranslationToJson(Translation instance) =>
-    <String, dynamic>{'official': instance.official, 'common': instance.common};
+Map<String, dynamic> _$FlagsToJson(Flags instance) => <String, dynamic>{
+  'png': instance.png,
+  'svg': instance.svg,
+  'alt': instance.alt,
+};
