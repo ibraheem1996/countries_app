@@ -1,18 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../logic/details_cubit.dart';
-import 'widget/app_bar.dart';
+import 'widget/details_header.dart';
+import 'widget/scetion_car.dart';
+import 'widget/section_additional.dart';
+import 'widget/section_code.dart';
+import 'widget/section_demonyms.dart';
+import 'widget/section_flag_info.dart';
+import 'widget/section_basic_info.dart';
+import 'widget/section_borders.dart';
+import 'widget/section_geographic.dart';
+import 'widget/section_languages.dart';
+import 'widget/section_mab.dart';
+import 'widget/section_postal.dart';
+import 'widget/section_statistics.dart';
+import 'widget/section_translations.dart';
 
-class CountryDetails extends StatefulWidget {
+class CountryDetailsPage extends StatefulWidget {
   final String cca3;
-  const CountryDetails({super.key, required this.cca3});
+  const CountryDetailsPage({super.key, required this.cca3});
 
   @override
-  State<CountryDetails> createState() => _CountryDetailsState();
+  State<CountryDetailsPage> createState() => _CountryDetailsPageState();
 }
 
-class _CountryDetailsState extends State<CountryDetails> {
+class _CountryDetailsPageState extends State<CountryDetailsPage> {
   @override
   void initState() {
     super.initState();
@@ -24,30 +36,57 @@ class _CountryDetailsState extends State<CountryDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocConsumer<DetailsCubit, DetailsState>(
-        listener: (context, state) {
-          print("======================================");
-          print('Cubit emitted ${state.runtimeType}');
-          state.mapOrNull(
-            error: (e) {
-              ScaffoldMessenger.of(
-                context,
-              ).showSnackBar(SnackBar(content: Text(e.failure.message)));
-            },
-          );
-        },
+      body: BlocBuilder<DetailsCubit, DetailsState>(
         builder: (context, state) {
-          state.mapOrNull(
-            loaded: (value) {
-              final data = value.detailsModel;
-              return CustomScrollView(slivers: [CustomSliverAppBar(data: data!)]);
-            },
-            loading: (value) {
-              return const Center(child: CircularProgressIndicator());
+          return state.when(
+            initial: () => const Center(child: CircularProgressIndicator()),
+            loading: () => const Center(child: CircularProgressIndicator()),
+            error: (e) => Center(child: Text(e.message)),
+            loaded: (detailsModel) {
+              if (detailsModel?.first == null) {
+                return const Center(child: Text('No data', style: TextStyle(fontSize: 20)));
+              }
+              final data = detailsModel!.first;
+              return CustomScrollView(
+                slivers: [
+                  DetailsHeader(data: data),
+                  SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          SectionFlagInfo(detailsModel: data),
+                          SectionBasicInfo(data: data),
+                          const SizedBox(height: 16),
+                          SectionStatistics(data: data),
+                          const SizedBox(height: 16),
+                          SectionLanguages(data: data),
+                          const SizedBox(height: 16),
+                          SectionBorders(data: data),
+                          const SizedBox(height: 16),
+                          SectionAdditional(data: data),
+                          CountryGeography(data: data),
+                          const SizedBox(height: 16),
+                          SectionCommunication(data: data),
+                          const SizedBox(height: 16),
+                          CountryIdentifiers(data: data),
+                          const SizedBox(height: 16),
+                          SectionPostal(data: data),
+                          const SizedBox(height: 16),
+                          SectionTranslations(data: data),
+                          const SizedBox(height: 16),
+                          SectionPeople(data: data),
+                          const SizedBox(height: 16),
+                          CountryLocation(data: data,),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              );
             },
           );
-
-          return SizedBox.shrink();
         },
       ),
     );
