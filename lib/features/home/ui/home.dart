@@ -6,7 +6,6 @@ import 'package:countries/features/home/data/model/modele.dart';
 
 import 'widget/sliver_app_bar.dart';
 
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -44,7 +43,11 @@ class _HomePageState extends State<HomePage> {
 
             return CustomScrollView(
               slivers: [
-                CustomSliverAppBar(onSearchChanged: (value) {}),
+                CustomSliverAppBar(
+                  onSearchChanged: (value) => context.read<HomeCubit>().search(value!),
+                  onFilterChanged: (filter) => context.read<HomeCubit>().setFilter(filter),
+                ),
+
                 GridViewBuilder(countries: countries),
               ],
             );

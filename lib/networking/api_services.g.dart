@@ -31,7 +31,7 @@ class _ApiServices implements ApiServices {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'all?fields=name,flags,cca3,translations,coatOfArms',
+            'all?fields=name,flags,cca2,cca3,idd,capital,languages,translations,coatOfArms',
             queryParameters: queryParameters,
             data: _data,
           )
