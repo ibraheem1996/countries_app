@@ -14,8 +14,9 @@ class HomeModel {
   final bool? independent;
   final int? population;
   final double? area;
+   final Idd? idd;
 
-  HomeModel({
+  HomeModel(this.idd, {
     this.name,
     this.flags,
     this.cca2,
@@ -65,4 +66,14 @@ class Flags {
   Flags({this.png, this.svg, this.alt});
 
   factory Flags.fromJson(Map<String, dynamic> json) => _$FlagsFromJson(json);
+}
+
+@JsonSerializable()
+class Idd {
+  final String? root;
+  final List<String>? suffixes;
+
+  Idd({this.root, this.suffixes});
+
+  factory Idd.fromJson(Map<String, dynamic> json) => _$IddFromJson(json);
 }

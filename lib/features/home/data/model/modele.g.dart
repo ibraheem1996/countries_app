@@ -7,6 +7,9 @@ part of 'modele.dart';
 // **************************************************************************
 
 HomeModel _$HomeModelFromJson(Map<String, dynamic> json) => HomeModel(
+  json['idd'] == null
+      ? null
+      : Idd.fromJson(json['idd'] as Map<String, dynamic>),
   name: json['name'] == null
       ? null
       : Name.fromJson(json['name'] as Map<String, dynamic>),
@@ -40,6 +43,7 @@ Map<String, dynamic> _$HomeModelToJson(HomeModel instance) => <String, dynamic>{
   'independent': instance.independent,
   'population': instance.population,
   'area': instance.area,
+  'idd': instance.idd,
 };
 
 Name _$NameFromJson(Map<String, dynamic> json) => Name(
@@ -74,4 +78,16 @@ Map<String, dynamic> _$FlagsToJson(Flags instance) => <String, dynamic>{
   'png': instance.png,
   'svg': instance.svg,
   'alt': instance.alt,
+};
+
+Idd _$IddFromJson(Map<String, dynamic> json) => Idd(
+  root: json['root'] as String?,
+  suffixes: (json['suffixes'] as List<dynamic>?)
+      ?.map((e) => e as String)
+      .toList(),
+);
+
+Map<String, dynamic> _$IddToJson(Idd instance) => <String, dynamic>{
+  'root': instance.root,
+  'suffixes': instance.suffixes,
 };
