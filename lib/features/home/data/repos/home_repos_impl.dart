@@ -4,7 +4,7 @@ import 'package:countries/networking/error_handler.dart';
 
 import '../../domain/entities.dart';
 import '../../domain/repository.dart';
-import '../model/modele.dart';
+import '../model/model.dart';
 import '../model/mappers.dart';
 
 class HomeRepositoryImpl implements HomeRepository {

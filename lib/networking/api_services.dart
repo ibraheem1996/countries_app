@@ -2,7 +2,7 @@ import 'package:countries/networking/constants_api.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 import '../features/country_details/data/model/details_model.dart';
-import '../features/home/data/model/modele.dart';
+import '../features/home/data/model/model.dart';
 
 part 'api_services.g.dart';
 

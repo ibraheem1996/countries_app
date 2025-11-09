@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-part 'modele.g.dart';
+part 'model.g.dart';
 
 @JsonSerializable()
 class HomeModel {
@@ -14,9 +14,10 @@ class HomeModel {
   final bool? independent;
   final int? population;
   final double? area;
-   final Idd? idd;
+  final Idd? idd;
 
-  HomeModel(this.idd, {
+  HomeModel(
+    this.idd, {
     this.name,
     this.flags,
     this.cca2,
@@ -31,6 +32,7 @@ class HomeModel {
   });
 
   factory HomeModel.fromJson(Map<String, dynamic> json) => _$HomeModelFromJson(json);
+  Map<String, dynamic> toJson() => _$HomeModelToJson(this);
 }
 
 // -------------------- Name --------------------
@@ -43,6 +45,7 @@ class Name {
   Name({this.common, this.official, this.nativeName});
 
   factory Name.fromJson(Map<String, dynamic> json) => _$NameFromJson(json);
+  Map<String, dynamic> toJson() => _$NameToJson(this);
 }
 
 // -------------------- NativeName --------------------
@@ -54,6 +57,7 @@ class NativeName {
   NativeName({this.official, this.common});
 
   factory NativeName.fromJson(Map<String, dynamic> json) => _$NativeNameFromJson(json);
+  Map<String, dynamic> toJson() => _$NativeNameToJson(this);
 }
 
 // -------------------- Flags --------------------
@@ -66,6 +70,7 @@ class Flags {
   Flags({this.png, this.svg, this.alt});
 
   factory Flags.fromJson(Map<String, dynamic> json) => _$FlagsFromJson(json);
+  Map<String, dynamic> toJson() => _$FlagsToJson(this);
 }
 
 @JsonSerializable()
@@ -76,4 +81,5 @@ class Idd {
   Idd({this.root, this.suffixes});
 
   factory Idd.fromJson(Map<String, dynamic> json) => _$IddFromJson(json);
+  Map<String, dynamic> toJson() => _$IddToJson(this);
 }
