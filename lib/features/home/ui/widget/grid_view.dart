@@ -5,10 +5,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../coor/dependency/dependency_get_it.dart';
 import '../../../country_details/logic/details_cubit.dart';
 import '../../../country_details/ui/country_details_view.dart';
-import '../../data/model/modele.dart';
+import '../../domain/entities.dart';
 
 class GridViewBuilder extends StatelessWidget {
-  final List<HomeModel> countries;
+  final List<Country> countries;
   const GridViewBuilder({super.key, required this.countries});
 
   @override
@@ -22,7 +22,7 @@ class GridViewBuilder extends StatelessWidget {
       ),
       delegate: SliverChildBuilderDelegate((context, index) {
         final country = countries[index];
-        final imageUrl = country.flags?.png ?? country.flags?.svg;
+        final imageUrl = country.flagPng ?? country.flagSvg;
 
         return GestureDetector(
           onTap: () {
@@ -60,7 +60,7 @@ class GridViewBuilder extends StatelessWidget {
     );
   }
 
-  Expanded _nameAndCode(HomeModel country) {
+  Expanded _nameAndCode(Country country) {
     return Expanded(
       flex: 3,
       child: Container(
@@ -77,7 +77,7 @@ class GridViewBuilder extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              country.name?.common ?? '',
+              country.nameCommon ?? '',
               textAlign: TextAlign.center,
               style: const TextStyle(
                 fontSize: 16,
