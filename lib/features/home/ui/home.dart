@@ -2,8 +2,8 @@ import 'package:countries/features/home/ui/widget/grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:countries/features/home/logic/home_cubit.dart';
-import 'package:countries/features/home/data/model/modele.dart';
 
+import '../domain/entities.dart' show Country;
 import 'widget/sliver_app_bar.dart';
 
 class HomePage extends StatefulWidget {
@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
           }
 
           if (state is Loaded) {
-            final List<HomeModel> countries = state.modeles;
+            final List<Country> countries = state.modeles;
 
             return CustomScrollView(
               slivers: [

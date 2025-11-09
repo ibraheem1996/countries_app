@@ -1,26 +1,29 @@
-import 'package:countries/features/home/data/model/modele.dart';
-import 'package:countries/features/home/data/repos/home_repos.dart';
+// lib/features/home/logic/home_cubit.dart
 import 'package:countries/networking/api_result.dart';
-import 'package:countries/networking/failure.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:countries/networking/failure.dart';
+
+import '../../../coor/use_case/use_cases.dart';
+import '../domain/entities.dart';
+import '../domain/repository.dart';
+import '../domain/use_cases.dart';
 
 part 'home_state.dart';
 part 'home_cubit.freezed.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  final HomeRepos homeRepos;
+  final GetCountriesUseCase countriesUseCase;
 
-  List<HomeModel> _allCountries = [];
+  List<Country> _allCountries = [];
   String _query = '';
   String? _currentFilter;
 
-  HomeCubit({required this.homeRepos}) : super(const HomeState.initial());
+  HomeCubit({required this.countriesUseCase}) : super(const HomeState.initial());
 
   Future<void> getHomeData() async {
     emit(const HomeState.loading());
-    final result = await homeRepos.getHomeData();
-
+    final result = await countriesUseCase.call(const NoParams());
     result.when(
       success: (data) {
         _allCountries = data;
@@ -30,10 +33,9 @@ class HomeCubit extends Cubit<HomeState> {
     );
   }
 
-
- void setFilter(String? filter) {
+  void setFilter(String? filter) {
     _currentFilter = filter;
-    _applyFilter(); 
+    _applyFilter();
   }
 
   void search(String query) {
@@ -54,29 +56,29 @@ class HomeCubit extends Cubit<HomeState> {
     final filtered = _allCountries.where((country) {
       switch (_currentFilter) {
         case 'Code':
-          final iddRoot = country.idd?.root ?? '';
-          final iddSuffix = country.idd?.suffixes?.join('') ?? '';
-          final phoneCode = '$iddRoot$iddSuffix';
-          final cleanPhone = phoneCode.replaceAll('+', '');
+          final root = country.phoneRoot ?? '';
+          final suffix = (country.phoneSuffixes).join('');
+          final phone = '$root$suffix';
+
+          final cleanPhone = phone.replaceAll('+', '');
           final cleanQuery = q.replaceAll('+', '');
 
-          bool startsWithClean(String text) => text.toLowerCase().startsWith(cleanQuery);
+          bool swc(String s) => s.toLowerCase().startsWith(cleanQuery);
 
-          return startsWithClean(phoneCode) ||
-              startsWithClean(cleanPhone) ||
-              startsWithClean(iddRoot) ||
-              startsWithClean(country.cca2 ?? '') ||
-              startsWithClean(country.cca3 ?? '');
+          return swc(phone) ||
+              swc(cleanPhone) ||
+              swc(root) ||
+              startsWith(country.cca2) ||
+              startsWith(country.cca3);
 
         case 'Capital':
-          return (country.capital ?? []).any(startsWith);
+          return country.capital.any(startsWith);
 
         case 'Language':
-          return (country.languages ?? {}).values.any(startsWith);
+          return country.languages.any(startsWith);
 
-        default:
-          final name = country.name;
-          return startsWith(name?.common) || startsWith(name?.official);
+        default: // Name
+          return startsWith(country.nameCommon) || startsWith(country.nameOfficial);
       }
     }).toList();
 
