@@ -1,4 +1,6 @@
 // lib/features/home/logic/home_cubit.dart
+import 'dart:async';
+
 import 'package:countries/networking/api_result.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -28,15 +30,17 @@ class HomeCubit extends Cubit<HomeState> {
       await Future.delayed(const Duration(seconds: 1));
       _allCountries = cachedData;
       emit(HomeState.loaded(cachedData));
-      countriesUseCase.call(const NoParams()).then((value) {
-        value.when(
-          success: (freshData) {
-            _allCountries = freshData;
-            emit(HomeState.loaded(freshData));
-          },
-          error: (_) {},
-        );
-      });
+      unawaited(
+        countriesUseCase.call(const NoParams()).then((value) {
+          value.when(
+            success: (freshData) {
+              _allCountries = freshData;
+              emit(HomeState.loaded(freshData));
+            },
+            error: (_) {},
+          );
+        }),
+      );
     } else {
       emit(const HomeState.loading());
       final result = await countriesUseCase.call(const NoParams());
