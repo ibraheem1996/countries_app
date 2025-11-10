@@ -42,7 +42,7 @@ class AppPrefs {
   // Store ANY json-encodable object (Map/List/primitive)
   static Future<bool> setJson(String key, Object? value) {
     final str = jsonEncode(value);
-    return _prefs.setString(key, str);
+    return   _prefs.setString(key, str);
   }
 
   // Decode JSON into Map<String, dynamic>

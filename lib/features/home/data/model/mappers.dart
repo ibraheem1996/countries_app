@@ -1,6 +1,6 @@
 
 import '../../domain/entities.dart';
-import 'modele.dart';
+import 'model.dart';
 
 extension HomeModelMapper on HomeModel {
   Country toEntity() {

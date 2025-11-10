@@ -1,4 +1,6 @@
 // lib/features/home/logic/home_cubit.dart
+import 'dart:async';
+
 import 'package:countries/networking/api_result.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -6,7 +8,6 @@ import 'package:countries/networking/failure.dart';
 
 import '../../../coor/use_case/use_cases.dart';
 import '../domain/entities.dart';
-import '../domain/repository.dart';
 import '../domain/use_cases.dart';
 
 part 'home_state.dart';
@@ -22,15 +23,35 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit({required this.countriesUseCase}) : super(const HomeState.initial());
 
   Future<void> getHomeData() async {
-    emit(const HomeState.loading());
-    final result = await countriesUseCase.call(const NoParams());
-    result.when(
-      success: (data) {
-        _allCountries = data;
-        emit(HomeState.loaded(data));
-      },
-      error: (error) => emit(HomeState.error(error)),
-    );
+    final cachedData = await countriesUseCase.getCachedCountries();
+
+    if (cachedData != null && cachedData.isNotEmpty) {
+      emit(const HomeState.loading());
+      await Future.delayed(const Duration(seconds: 1));
+      _allCountries = cachedData;
+      emit(HomeState.loaded(cachedData));
+      unawaited(
+        countriesUseCase.call(const NoParams()).then((value) {
+          value.when(
+            success: (freshData) {
+              _allCountries = freshData;
+              emit(HomeState.loaded(freshData));
+            },
+            error: (_) {},
+          );
+        }),
+      );
+    } else {
+      emit(const HomeState.loading());
+      final result = await countriesUseCase.call(const NoParams());
+      result.when(
+        success: (data) {
+          _allCountries = data;
+          emit(HomeState.loaded(data));
+        },
+        error: (error) => emit(HomeState.error(error)),
+      );
+    }
   }
 
   void setFilter(String? filter) {
