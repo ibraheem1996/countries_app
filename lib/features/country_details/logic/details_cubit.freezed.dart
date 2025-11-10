@@ -128,7 +128,7 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<DetailsModel>? detailsModel)?  loaded,TResult Function( Failure failure)?  error,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<CountryDetailsEntities>? detailsModel)?  loaded,TResult Function( Failure failure)?  error,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case Loading() when loading != null:
@@ -152,7 +152,7 @@ return error(_that.failure);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<DetailsModel>? detailsModel)  loaded,required TResult Function( Failure failure)  error,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<CountryDetailsEntities>? detailsModel)  loaded,required TResult Function( Failure failure)  error,}) {final _that = this;
 switch (_that) {
 case _Initial():
 return initial();case Loading():
@@ -175,7 +175,7 @@ return error(_that.failure);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<DetailsModel>? detailsModel)?  loaded,TResult? Function( Failure failure)?  error,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<CountryDetailsEntities>? detailsModel)?  loaded,TResult? Function( Failure failure)?  error,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case Loading() when loading != null:
@@ -257,11 +257,11 @@ String toString() {
 
 
 class Loaded implements DetailsState {
-  const Loaded(final  List<DetailsModel>? detailsModel): _detailsModel = detailsModel;
+  const Loaded(final  List<CountryDetailsEntities>? detailsModel): _detailsModel = detailsModel;
   
 
- final  List<DetailsModel>? _detailsModel;
- List<DetailsModel>? get detailsModel {
+ final  List<CountryDetailsEntities>? _detailsModel;
+ List<CountryDetailsEntities>? get detailsModel {
   final value = _detailsModel;
   if (value == null) return null;
   if (_detailsModel is EqualUnmodifiableListView) return _detailsModel;
@@ -300,7 +300,7 @@ abstract mixin class $LoadedCopyWith<$Res> implements $DetailsStateCopyWith<$Res
   factory $LoadedCopyWith(Loaded value, $Res Function(Loaded) _then) = _$LoadedCopyWithImpl;
 @useResult
 $Res call({
- List<DetailsModel>? detailsModel
+ List<CountryDetailsEntities>? detailsModel
 });
 
 
@@ -320,7 +320,7 @@ class _$LoadedCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') $Res call({Object? detailsModel = freezed,}) {
   return _then(Loaded(
 freezed == detailsModel ? _self._detailsModel : detailsModel // ignore: cast_nullable_to_non_nullable
-as List<DetailsModel>?,
+as List<CountryDetailsEntities>?,
   ));
 }
 

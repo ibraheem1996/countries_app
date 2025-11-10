@@ -5,13 +5,14 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../networking/failure.dart';
 import '../data/model/details_model.dart';
-import '../data/repos/repos_details.dart';
+import '../doman/entities.dart';
+import '../doman/repository.dart';
 
 part 'details_state.dart';
 part 'details_cubit.freezed.dart';
 
 class DetailsCubit extends Cubit<DetailsState> {
-  final DetailsRepos detailsRepos ;
+  final DetailsRepository detailsRepos ;
   DetailsCubit({required this.detailsRepos}) : super(DetailsState.initial());
 
   Future<void> getDetails(String cca3) async {
