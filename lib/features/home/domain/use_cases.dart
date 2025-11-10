@@ -11,4 +11,8 @@ class GetCountriesUseCase implements UseCase<List<Country>, NoParams> {
   Future<ApiResult<List<Country>>> call(NoParams params) {
     return homeRepos.getCountries();
   }
+
+  Future<List<Country>?> getCachedCountries() {
+    return homeRepos.getCachedCountries();
+  }
 }

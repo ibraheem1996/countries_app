@@ -3,4 +3,5 @@ import 'entities.dart';
 
 abstract class HomeRepository {
   Future<ApiResult<List<Country>>> getCountries();
+  Future<List<Country>?> getCachedCountries();
 }

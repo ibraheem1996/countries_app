@@ -5,9 +5,9 @@ import 'coor/dependency/dependency_get_it.dart';
 import 'features/home/logic/home_cubit.dart';
 import 'features/home/ui/home.dart';
 
-void main() {
+void main()async {
   WidgetsFlutterBinding.ensureInitialized();
-  setupGetIt();
+ await setupGetIt();
   runApp(const MyApp());
 }
 
