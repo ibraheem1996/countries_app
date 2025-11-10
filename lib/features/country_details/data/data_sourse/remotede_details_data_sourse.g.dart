@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'data_sourse.dart';
+part of 'remote_details_data_sourse.dart';
 
 // dart format off
 

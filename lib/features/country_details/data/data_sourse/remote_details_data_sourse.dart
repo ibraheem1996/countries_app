@@ -4,7 +4,7 @@ import 'package:retrofit/retrofit.dart';
 
 import '../model/details_model.dart';
 
-part 'data_sourse.g.dart';
+part 'remotede_details_data_sourse.g.dart';
 
 @RestApi(baseUrl: ApiConstants.baseUrl)
 abstract class RemoteDetailsDataSourse {
