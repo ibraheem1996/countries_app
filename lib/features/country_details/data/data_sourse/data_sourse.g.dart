@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'api_services.dart';
+part of 'data_sourse.dart';
 
 // dart format off
 
@@ -10,8 +10,8 @@ part of 'api_services.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter,avoid_unused_constructor_parameters,unreachable_from_main
 
-class _ApiServices implements ApiServices {
-  _ApiServices(this._dio, {this.baseUrl, this.errorLogger}) {
+class _RemoteDetailsDataSourse implements RemoteDetailsDataSourse {
+  _RemoteDetailsDataSourse(this._dio, {this.baseUrl, this.errorLogger}) {
     baseUrl ??= 'https://restcountries.com/v3.1/';
   }
 
@@ -20,35 +20,6 @@ class _ApiServices implements ApiServices {
   String? baseUrl;
 
   final ParseErrorLogger? errorLogger;
-
-  @override
-  Future<List<HomeModel>> getHomeData() async {
-    final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<HomeModel>>(
-      Options(method: 'GET', headers: _headers, extra: _extra)
-          .compose(
-            _dio.options,
-            'all?fields=name,flags,cca2,cca3,idd,capital,languages,translations,coatOfArms',
-            queryParameters: queryParameters,
-            data: _data,
-          )
-          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
-    );
-    final _result = await _dio.fetch<List<dynamic>>(_options);
-    late List<HomeModel> _value;
-    try {
-      _value = _result.data!
-          .map((dynamic i) => HomeModel.fromJson(i as Map<String, dynamic>))
-          .toList();
-    } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
-      rethrow;
-    }
-    return _value;
-  }
 
   @override
   Future<List<DetailsModel>> detailsCountry(String cca3) async {

@@ -51,6 +51,7 @@ Future<void> setupGetIt() async {
   );
 
   //! Details
+  getIt.registerLazySingleton<ApiServices>(() => ApiServices(getIt<Dio>()));
   getIt.registerLazySingleton<DetailsRepos>(() => DetailsRepos(apiServices: getIt<ApiServices>()));
   getIt.registerFactory<DetailsCubit>(() => DetailsCubit(detailsRepos: getIt<DetailsRepos>()));
 }
