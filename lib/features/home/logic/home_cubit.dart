@@ -24,6 +24,8 @@ class HomeCubit extends Cubit<HomeState> {
     final cachedData = await countriesUseCase.getCachedCountries();
 
     if (cachedData != null && cachedData.isNotEmpty) {
+      emit(const HomeState.loading());
+      await Future.delayed(const Duration(seconds: 1));
       _allCountries = cachedData;
       emit(HomeState.loaded(cachedData));
       countriesUseCase.call(const NoParams()).then((value) {

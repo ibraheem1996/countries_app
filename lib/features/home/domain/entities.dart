@@ -1,35 +1,24 @@
-class Country {
-  final String? nameCommon;
-  final String? nameOfficial;
-  final String? flagPng;
-  final String? flagSvg;
-  final String? cca2;
-  final String? cca3;
-  final String? region;
-  final String? subregion;
-  final List<String> capital; 
-  final List<String> languages; 
-  final bool? independent;
-  final int? population;
-  final double? area;
-  final String? phoneRoot; 
-  final List<String> phoneSuffixes; 
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  const Country({
-    this.nameCommon,
-    this.nameOfficial,
-    this.flagPng,
-    this.flagSvg,
-    this.cca2,
-    this.cca3,
-    this.region,
-    this.subregion,
-    this.capital = const [],
-    this.languages = const [],
-    this.independent,
-    this.population,
-    this.area,
-    this.phoneRoot,
-    this.phoneSuffixes = const [],
-  });
+part 'entities.freezed.dart';
+
+@freezed
+abstract  class Country with _$Country {
+  const factory Country({
+    String? nameCommon,
+    String? nameOfficial,
+    String? flagPng,
+    String? flagSvg,
+    String? cca2,
+    String? cca3,
+    String? region,
+    String? subregion,
+    @Default([]) List<String> capital,
+    @Default([]) List<String> languages,
+    bool? independent,
+    int? population,
+    double? area,
+    String? phoneRoot,
+    @Default([]) List<String> phoneSuffixes,
+  }) = _Country;
 }
