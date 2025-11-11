@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import '../../data/model/details_model.dart';
+import '../../doman/entities.dart';
 import 'basic_widget_card.dart';
 
 class SectionPostal extends StatelessWidget {
-  final DetailsModel data;
+  final CountryDetailsEntities data;
   const SectionPostal({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
-
     return basicWidgetCard(
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -16,8 +15,8 @@ class SectionPostal extends StatelessWidget {
           textTitel('Postal Code'),
 
           const SizedBox(height: 8),
-          rowInfo('Format', data.postalCode?.format),
-          rowInfo('Regex',  data.postalCode?.regex, lastRow: true),
+          rowInfo('Format', data.postalFormat),
+          rowInfo('Regex', data.postalRegex, lastRow: true),
         ],
       ),
     );

@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
-import '../../data/model/details_model.dart';
+import '../../doman/entities.dart';
 import 'basic_widget_card.dart';
 
 class SectionBasicInfo extends StatelessWidget {
-  final DetailsModel data;
+  final CountryDetailsEntities data;
   const SectionBasicInfo({super.key, required this.data});
   String? _capital() {
-    if (data.capital != null && data.capital!.isNotEmpty) {
-      if (data.capital!.any((c) => c == "Ramallah")) {
+      if (data.capital.any((c) => c == "Ramallah")) {
         return "Alqds";
       }
-      return data.capital!.join(" , ");
-    }
-    return null;
+      return data.capital.join(" , ");
+    
   }
 
   @override
@@ -24,7 +22,7 @@ class SectionBasicInfo extends StatelessWidget {
         children: [
           textTitel('Basic Info'),
 
-          rowInfo('Official Name', data.name.official),
+          rowInfo('Official Name', data.nameOfficial),
           rowInfo("Capital", _capital()),
           rowInfo("Region", data.region),
           rowInfo("Subregion", data.subregion),

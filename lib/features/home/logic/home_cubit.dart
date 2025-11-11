@@ -14,7 +14,7 @@ part 'home_state.dart';
 part 'home_cubit.freezed.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  final GetCountriesUseCase countriesUseCase;
+  final GetCountriesHomeUseCase countriesUseCase;
 
   List<Country> _allCountries = [];
   String _query = '';
