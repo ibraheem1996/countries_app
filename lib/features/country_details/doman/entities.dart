@@ -24,27 +24,44 @@ abstract class CountryDetailsEntities with _$CountryDetailsEntities {
     int? population,
     double? area,
     String? startOfWeek,
-    String? capital,
+
+    @Default([]) List<String> capital,
+
     @Default([]) List<String> altSpellings,
     @Default({}) Map<String, String> languages,
     @Default([]) List<String> borders,
     @Default([]) List<String> timezones,
     @Default([]) List<String> continents,
+
+    Map<String, Map<String, String>>? translations,
+
     String? root,
     @Default([]) List<String> suffixes,
+
     String? googleMapsUrl,
     String? openStreetMapsUrl,
+
     String? carSide,
     @Default([]) List<String> carSigns,
+
+    String? currencies,
+    String? fifa,
+
+    Map<String, double>? gini,
+    List<String>? tld,
+
     String? currencyName,
     String? currencySymbol,
+
     String? demonymMaleEng,
     String? demonymFemaleEng,
     String? demonymMaleFra,
     String? demonymFemaleFra,
+
     List<double>? latlng,
     List<double>? capitalLatlng,
     bool? landlocked,
+
     String? postalFormat,
     String? postalRegex,
   }) = _CountryDetailsEntities;

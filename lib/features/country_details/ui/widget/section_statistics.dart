@@ -1,9 +1,9 @@
+import 'package:countries/features/country_details/doman/entities.dart';
 import 'package:flutter/material.dart';
-import '../../data/model/details_model.dart';
 import 'basic_widget_card.dart';
 
 class SectionStatistics extends StatelessWidget {
-  final DetailsModel data;
+  final CountryDetailsEntities data;
   const SectionStatistics({super.key, required this.data});
 
   @override
@@ -19,9 +19,9 @@ class SectionStatistics extends StatelessWidget {
 
           rowInfo('Area', '${data.area ?? 0} km²'),
 
-          rowInfo('Currency', data.currencies?.syp?.name ?? "Unknown"),
+          rowInfo('Currency', data.currencies),
 
-          rowInfo('FIFA Code', data.fifa ?? "Unknown", lastRow: true),
+          rowInfo('FIFA Code', data.fifa, lastRow: true),
         ],
       ),
     );

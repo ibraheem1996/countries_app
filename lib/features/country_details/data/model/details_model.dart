@@ -122,6 +122,7 @@ class Currencies {
 
   Currencies({this.syp});
   factory Currencies.fromJson(Map<String, dynamic> json) => _$CurrenciesFromJson(json);
+  Map<String, dynamic> toJson() => _$CurrenciesToJson(this);
 }
 
 @JsonSerializable()
@@ -131,7 +132,7 @@ class CurrencyDetail {
 
   CurrencyDetail({this.name, this.symbol});
   factory CurrencyDetail.fromJson(Map<String, dynamic> json) => _$CurrencyDetailFromJson(json);
-  Map<String,dynamic> tpJson()=> _$CurrencyDetailToJson(this);
+  Map<String, dynamic> tpJson() => _$CurrencyDetailToJson(this);
 }
 
 @JsonSerializable()
@@ -141,7 +142,7 @@ class Idd {
 
   Idd({this.root, this.suffixes});
   factory Idd.fromJson(Map<String, dynamic> json) => _$IddFromJson(json);
-  Map<String,dynamic> tpJson()=> _$IddToJson(this);
+  Map<String, dynamic> tpJson() => _$IddToJson(this);
 }
 
 @JsonSerializable()
@@ -151,7 +152,7 @@ class Demonyms {
 
   Demonyms({this.eng, this.fra});
   factory Demonyms.fromJson(Map<String, dynamic> json) => _$DemonymsFromJson(json);
-  Map<String,dynamic> tpJson()=> _$DemonymsToJson(this);
+  Map<String, dynamic> tpJson() => _$DemonymsToJson(this);
 }
 
 @JsonSerializable()
@@ -161,7 +162,7 @@ class Eng {
 
   Eng({this.f, this.m});
   factory Eng.fromJson(Map<String, dynamic> json) => _$EngFromJson(json);
-  Map<String,dynamic> tpJson()=> _$EngToJson(this);
+  Map<String, dynamic> tpJson() => _$EngToJson(this);
 }
 
 @JsonSerializable()
@@ -171,7 +172,7 @@ class Fra {
 
   Fra({this.f, this.m});
   factory Fra.fromJson(Map<String, dynamic> json) => _$FraFromJson(json);
-  Map<String,dynamic> tpJson()=> _$FraToJson(this);
+  Map<String, dynamic> tpJson() => _$FraToJson(this);
 }
 
 @JsonSerializable()
@@ -181,7 +182,7 @@ class Maps {
 
   Maps({this.googleMaps, this.openStreetMaps});
   factory Maps.fromJson(Map<String, dynamic> json) => _$MapsFromJson(json);
-  Map<String,dynamic> tpJson()=> _$MapsToJson(this);
+  Map<String, dynamic> tpJson() => _$MapsToJson(this);
 }
 
 @JsonSerializable()
@@ -191,7 +192,7 @@ class Car {
 
   Car({this.signs, this.side});
   factory Car.fromJson(Map<String, dynamic> json) => _$CarFromJson(json);
-  Map<String,dynamic> tpJson()=> _$CarToJson(this);
+  Map<String, dynamic> tpJson() => _$CarToJson(this);
 }
 
 @JsonSerializable()
@@ -202,7 +203,7 @@ class Flags {
 
   Flags({this.png, this.svg, this.alt});
   factory Flags.fromJson(Map<String, dynamic> json) => _$FlagsFromJson(json);
-  Map<String,dynamic> tpJson()=> _$FlagsToJson(this);
+  Map<String, dynamic> tpJson() => _$FlagsToJson(this);
 }
 
 @JsonSerializable()
@@ -212,7 +213,7 @@ class CoatOfArms {
 
   CoatOfArms({this.png, this.svg});
   factory CoatOfArms.fromJson(Map<String, dynamic> json) => _$CoatOfArmsFromJson(json);
-  Map<String,dynamic> tpJson()=> _$CoatOfArmsToJson(this);
+  Map<String, dynamic> tpJson() => _$CoatOfArmsToJson(this);
 }
 
 @JsonSerializable()
@@ -221,7 +222,7 @@ class CapitalInfo {
 
   CapitalInfo({this.latlng});
   factory CapitalInfo.fromJson(Map<String, dynamic> json) => _$CapitalInfoFromJson(json);
-  Map<String,dynamic> tpJson()=> _$CapitalInfoToJson(this);
+  Map<String, dynamic> tpJson() => _$CapitalInfoToJson(this);
 }
 
 @JsonSerializable()
@@ -231,5 +232,5 @@ class PostalCode {
 
   PostalCode({this.format, this.regex});
   factory PostalCode.fromJson(Map<String, dynamic> json) => _$PostalCodeFromJson(json);
-  Map<String,dynamic> tpJson()=> _$PostalCodeToJson(this);
+  Map<String, dynamic> tpJson() => _$PostalCodeToJson(this);
 }

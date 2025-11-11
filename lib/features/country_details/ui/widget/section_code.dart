@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../data/model/details_model.dart';
+import '../../doman/entities.dart';
 import 'basic_widget_card.dart';
 
 class CountryIdentifiers extends StatelessWidget {
-  final DetailsModel data;
+  final CountryDetailsEntities data;
   const CountryIdentifiers({super.key, required this.data});
 
   @override

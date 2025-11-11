@@ -1,4 +1,3 @@
-
 import '../../doman/entities.dart';
 import '../model/details_model.dart';
 
@@ -25,37 +24,55 @@ extension DetailsMapper on DetailsModel {
       area: area,
       startOfWeek: startOfWeek,
 
-      capital: (capital != null && capital!.isNotEmpty) ? capital!.first : null,
+      // ✅ Capitals
+      capital: capital ?? [],
+
       altSpellings: altSpellings ?? [],
       languages: languages ?? {},
       borders: borders ?? [],
       timezones: timezones ?? [],
       continents: continents ?? [],
+      translations: translations?.map(
+        (key, value) =>
+            MapEntry(key, {'official': value.official ?? '', 'common': value.common ?? ''}),
+      ),
 
+      // ✅ Idd
       root: idd?.root,
       suffixes: idd?.suffixes ?? [],
 
+      // ✅ Maps
       googleMapsUrl: maps?.googleMaps,
       openStreetMapsUrl: maps?.openStreetMaps,
 
+      // ✅ Car info
       carSide: car?.side,
       carSigns: car?.signs ?? [],
 
-      currencyName: currencies?.syp?.name,
-      currencySymbol: currencies?.syp?.symbol,
+      currencyName: (currencies != null && currencies!.toJson().isNotEmpty)
+          ? currencies!.toJson().values.first['name']
+          : null,
+      currencySymbol: (currencies != null && currencies!.toJson().isNotEmpty)
+          ? currencies!.toJson().values.first['symbol']
+          : null,
 
+      // ✅ Demonyms
       demonymMaleEng: demonyms?.eng?.m,
       demonymFemaleEng: demonyms?.eng?.f,
       demonymMaleFra: demonyms?.fra?.m,
       demonymFemaleFra: demonyms?.fra?.f,
 
+      // ✅ Coordinates
       latlng: latlng,
       capitalLatlng: capitalInfo?.latlng,
-
       landlocked: landlocked,
 
+      // ✅ Others
       postalFormat: postalCode?.format,
       postalRegex: postalCode?.regex,
+      gini: gini,
+      fifa: fifa,
+      tld: tld,
     );
   }
 }

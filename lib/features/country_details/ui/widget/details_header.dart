@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../../data/model/details_model.dart';
+import '../../doman/entities.dart';
 
 class DetailsHeader extends StatefulWidget {
-  final DetailsModel data;
+  final CountryDetailsEntities data;
   const DetailsHeader({super.key, required this.data});
 
   @override
@@ -14,8 +14,8 @@ class _DetailsHeaderState extends State<DetailsHeader> {
   int currentImage = 0;
 
   List<String> get images {
-    final flag = widget.data.flags?.svg ?? widget.data.flags?.png;
-    final coat = widget.data.coatOfArms?.svg ?? widget.data.coatOfArms?.png;
+    final flag = widget.data.flagSvg ?? widget.data.flagPng;
+    final coat = widget.data.coatSvg ?? widget.data.coatPng;
     return [flag, coat].whereType<String>().toList();
   }
 
@@ -26,7 +26,7 @@ class _DetailsHeaderState extends State<DetailsHeader> {
       expandedHeight: 450,
       flexibleSpace: FlexibleSpaceBar(
         title: Text(
-          widget.data.name.common ?? '',
+          widget.data.nameCommon ,
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         background: Stack(

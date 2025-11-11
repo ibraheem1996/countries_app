@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../data/model/details_model.dart';
+import '../../doman/entities.dart';
 import 'basic_widget_card.dart';
 
 class SectionPeople extends StatelessWidget {
-  final DetailsModel data;
+  final CountryDetailsEntities data;
   const SectionPeople({super.key, required this.data});
 
   @override
@@ -15,10 +15,10 @@ class SectionPeople extends StatelessWidget {
           textTitel('People'),
 
           const SizedBox(height: 8),
-          rowInfo('English (Male)', data.demonyms?.eng?.m),
-          rowInfo('English (Female)', data.demonyms?.eng?.f),
-          rowInfo('French (Male)', data.demonyms?.fra?.m),
-          rowInfo('French (Female)', data.demonyms?.fra?.f, lastRow: true),
+          rowInfo('English (Male)', data.demonymMaleEng),
+          rowInfo('English (Female)', data.demonymFemaleEng),
+          rowInfo('French (Male)', data.demonymMaleFra),
+          rowInfo('French (Female)', data.demonymFemaleFra, lastRow: true),
         ],
       ),
     );
