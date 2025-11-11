@@ -12,7 +12,7 @@ import '../data_sourse/remote_details_data_sourse.dart';
 
 class DetailsReposImpl implements DetailsRepository {
   final RemoteDetailsDataSourse remoteDetailsDataSourse;
-  final LocalDetailsDataSourse localDetailsDataSourse;
+  final LocalDetailsDataSource localDetailsDataSourse;
 
   DetailsReposImpl({required this. remoteDetailsDataSourse , required this.localDetailsDataSourse});
 
