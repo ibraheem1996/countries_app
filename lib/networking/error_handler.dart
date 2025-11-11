@@ -25,18 +25,22 @@ class ErrorHandler {
           if (error.error is SocketException) {
             return const Failure.network();
           }
-          return const Failure.unexpected();
+          return const Failure.unexpected(message: 'Unknown error');
 
         default:
-          return const Failure.unexpected();
+          return const Failure.unexpected(message: 'Unknown error');
       }
     } else if (error is SocketException) {
       return const Failure.network();
     } else if (error is FormatException) {
       return const Failure.unexpected(message: 'Data format error');
+    } else {
+      print("=========================");
+      print('⚠️ Unknown Error Type: ${error.runtimeType} | Value: $error');
+      return const Failure.unexpected(message: 'Unknown ');
     }
 
-    return const Failure.unexpected();
+    // return const Failure.unexpected(message: 'Unknown ');
   }
 
   static String _extractServerMessage(dynamic data) {

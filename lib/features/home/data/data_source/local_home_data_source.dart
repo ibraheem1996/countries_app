@@ -1,9 +1,9 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-class LocaCountryHomelDataSource {
+class LocalCountryHomeDataSource {
   final SharedPreferences pref;
 
-  LocaCountryHomelDataSource({required this.pref});
+  LocalCountryHomeDataSource({required this.pref});
   static const _key = 'COUNTRIES';
 
   Future<void> save(String homeModel) async {

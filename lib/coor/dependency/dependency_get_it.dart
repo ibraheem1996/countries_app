@@ -31,8 +31,8 @@ Future<void> setupGetIt() async {
   //!================Home===============================
 
   //!HOME LOCAL DATA SOURCE
-  getIt.registerLazySingleton<LocaCountryHomelDataSource>(
-    () => LocaCountryHomelDataSource(pref: getIt<SharedPreferences>()),
+  getIt.registerLazySingleton<LocalCountryHomeDataSource>(
+    () => LocalCountryHomeDataSource(pref: getIt<SharedPreferences>()),
   );
 
   //!HOME REMOTE DATA SOURCE
@@ -43,7 +43,7 @@ Future<void> setupGetIt() async {
   getIt.registerLazySingleton<HomeRepository>(
     () => HomeRepositoryImpl(
       api: getIt<RemoteHomeDataSource>(),
-      localDataSource: getIt<LocaCountryHomelDataSource>(),
+      localDataSource: getIt<LocalCountryHomeDataSource>(),
     ),
   );
 

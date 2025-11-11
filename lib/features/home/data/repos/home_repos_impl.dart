@@ -12,7 +12,7 @@ import '../model/mappers.dart';
 
 class HomeRepositoryImpl implements HomeRepository {
   final RemoteHomeDataSource api;
-  final CountryLocalDataSource localDataSource;
+  final LocalCountryHomeDataSource localDataSource;
 
   HomeRepositoryImpl({required this.api, required this.localDataSource});
   @override

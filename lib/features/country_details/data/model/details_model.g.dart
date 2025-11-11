@@ -150,13 +150,13 @@ Map<String, dynamic> _$TranslationToJson(Translation instance) =>
     <String, dynamic>{'official': instance.official, 'common': instance.common};
 
 Currencies _$CurrenciesFromJson(Map<String, dynamic> json) => Currencies(
-  syp: json['SYP'] == null
-      ? null
-      : CurrencyDetail.fromJson(json['SYP'] as Map<String, dynamic>),
+  currencies: (json['currencies'] as Map<String, dynamic>?)?.map(
+    (k, e) => MapEntry(k, CurrencyDetail.fromJson(e as Map<String, dynamic>)),
+  ),
 );
 
 Map<String, dynamic> _$CurrenciesToJson(Currencies instance) =>
-    <String, dynamic>{'SYP': instance.syp};
+    <String, dynamic>{'currencies': instance.currencies};
 
 CurrencyDetail _$CurrencyDetailFromJson(Map<String, dynamic> json) =>
     CurrencyDetail(

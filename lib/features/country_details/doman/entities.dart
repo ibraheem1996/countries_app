@@ -19,6 +19,7 @@ abstract class CountryDetailsEntities with _$CountryDetailsEntities {
     String? flag,
     String? flagPng,
     String? flagSvg,
+    String? flagAlt,
     String? coatPng,
     String? coatSvg,
     int? population,

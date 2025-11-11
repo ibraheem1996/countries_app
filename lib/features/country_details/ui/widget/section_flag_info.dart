@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 
 import '../../doman/entities.dart';
 
-class  SectionFlagInfo extends StatelessWidget {
+class SectionFlagInfo extends StatelessWidget {
   final CountryDetailsEntities detailsModel;
-  const  SectionFlagInfo({super.key, required this.detailsModel});
+  const SectionFlagInfo({super.key, required this.detailsModel});
 
   @override
   Widget build(BuildContext context) {
-    return basicWidgetCard(Text("${detailsModel.flag ?? ""}  ${detailsModel.flag}"));
+    return basicWidgetCard(Text("${detailsModel.flag ?? ""}  ${detailsModel.flagAlt??""}"));
   }
 }
