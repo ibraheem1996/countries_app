@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:countries/features/home/logic/home_cubit.dart';
 
 import '../domain/entities.dart' show Country;
+import 'widget/retry.dart';
 import 'widget/sliver_app_bar.dart';
 
 class HomePage extends StatefulWidget {
@@ -40,23 +41,23 @@ class _HomePageState extends State<HomePage> {
 
           if (state is Loaded) {
             final List<Country> countries = state.modeles;
+            return RetryWidget(message: "");
+            // return CustomScrollView(
+            //   slivers: [
+            //     CustomSliverAppBar(
+            //       onSearchChanged: (value) => context.read<HomeCubit>().search(value!),
+            //       onFilterChanged: (filter) => context.read<HomeCubit>().setFilter(filter),
+            //     ),
+            //     SliverToBoxAdapter(
+            //       child: TextButton(
+            //         onPressed: () => throw Exception(),
+            //         child: const Text("Throw Test Exception"),
+            //       ),
+            //     ),
 
-            return CustomScrollView(
-              slivers: [
-                CustomSliverAppBar(
-                  onSearchChanged: (value) => context.read<HomeCubit>().search(value!),
-                  onFilterChanged: (filter) => context.read<HomeCubit>().setFilter(filter),
-                ),
-                SliverToBoxAdapter(
-                  child: TextButton(
-                    onPressed: () => throw Exception(),
-                    child: const Text("Throw Test Exception"),
-                  ),
-                ),
-
-                GridViewBuilder(countries: countries),
-              ],
-            );
+            //     GridViewBuilder(countries: countries),
+            //   ],
+            // );
           }
 
           if (state is Error) {
