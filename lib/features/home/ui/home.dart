@@ -47,6 +47,12 @@ class _HomePageState extends State<HomePage> {
                   onSearchChanged: (value) => context.read<HomeCubit>().search(value!),
                   onFilterChanged: (filter) => context.read<HomeCubit>().setFilter(filter),
                 ),
+                SliverToBoxAdapter(
+                  child: TextButton(
+                    onPressed: () => throw Exception(),
+                    child: const Text("Throw Test Exception"),
+                  ),
+                ),
 
                 GridViewBuilder(countries: countries),
               ],

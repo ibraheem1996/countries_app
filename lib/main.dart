@@ -1,15 +1,35 @@
+import 'dart:async';
+import 'dart:ui';
+
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'coor/dependency/dependency_get_it.dart';
 import 'features/home/logic/home_cubit.dart';
 import 'features/home/ui/home.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main()async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
- await setupGetIt();
-  runApp(const MyApp());
+  await setupGetIt();
+  await Firebase.initializeApp();
+  FlutterError.onError = (errorDetails) {
+    FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+  };
+  // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
+  PlatformDispatcher.instance.onError = (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    return true;
+  };
+    await runZonedGuarded<Future<void>>(() async {
+    runApp(const MyApp());
+  }, (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+  });
 }
+
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
