@@ -4,8 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../logic/home_cubit.dart';
 
 class RetryWidget extends StatefulWidget {
-  final String message; // رسالة الخطأ (تقدر تمررها من الكيوبت)
-  const RetryWidget({super.key, required this.message});
+  final String message;
+  final Icon icon;
+  const RetryWidget({super.key, required this.message, required this.icon, });
 
   @override
   State<RetryWidget> createState() => _RetryWidgetState();
@@ -35,7 +36,7 @@ class _RetryWidgetState extends State<RetryWidget> with SingleTickerProviderStat
 
   void _retry() {
     final cubit = context.read<HomeCubit>();
-    cubit.getHomeData(); 
+    cubit.getHomeData();
   }
 
   @override
@@ -46,10 +47,10 @@ class _RetryWidgetState extends State<RetryWidget> with SingleTickerProviderStat
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(Icons.wifi_off_rounded, color: Colors.redAccent, size: 64),
+            widget.icon,
             const SizedBox(height: 16),
             Text(
-              widget.message.isNotEmpty ? widget.message : "Connection error occurred",
+               widget.message,
               textAlign: TextAlign.center,
               style: const TextStyle(
                 fontSize: 16,
