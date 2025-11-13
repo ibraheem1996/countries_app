@@ -1,9 +1,9 @@
-import 'package:countries/features/home/ui/widget/grid_view.dart';
+import 'package:countries/features/home/ui/widget/gridview/grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:countries/features/home/logic/home_cubit.dart';
 import 'widget/animated_retry_button.dart';
-import 'widget/retry.dart';
+import 'widget/page_retry.dart';
 import 'widget/sliver_app_bar.dart';
 
 class HomePage extends StatefulWidget {

@@ -21,9 +21,9 @@ class _CustomSliverAppBarState extends State<CustomSliverAppBar> {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      pinned: true,
+      pinned: false,
       floating: true,
-      elevation: 2,
+      elevation: 3,
       backgroundColor: Colors.white,
       toolbarHeight: 110,
       automaticallyImplyLeading: false,
