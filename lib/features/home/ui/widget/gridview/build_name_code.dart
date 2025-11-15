@@ -3,15 +3,9 @@ import 'package:flutter/material.dart';
 import '../../../domain/entities.dart';
 
 Widget buildNameAndCode(Country country) {
-  
-  final subName = 
-  (country.capital.isNotEmpty&&
-  country.capital
-  .first.isNotEmpty)
+  final subName = (country.capital.isNotEmpty && country.capital.first.isNotEmpty)
       ? country.capital.first
-      : country.nameCommon ?? country.nameOfficial??"";
-
-
+      : country.nameCommon ?? country.nameOfficial ?? "";
 
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
@@ -34,13 +28,19 @@ Widget buildNameAndCode(Country country) {
           overflow: TextOverflow.ellipsis,
         ),
         const SizedBox(height: 5),
-        Text(
-          subName.toString(),
-          style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.grey.shade600),
+        Expanded(
+          child: Text(
+            subName.toString(),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+              color: Colors.grey.shade600,
+            ),
+          ),
         ),
       ],
     ),
   );
 }
-
-

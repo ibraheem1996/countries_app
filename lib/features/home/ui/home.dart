@@ -40,11 +40,11 @@ class _HomePageState extends State<HomePage> {
         },
         builder: (context, state) {
           return state.when(
-            initial: () => SizedBox.shrink(),
+            initial: () => const SizedBox.shrink(),
             loading: () => const Center(child: CircularProgressIndicator()),
             error: (error) => RetryWidget(message: error.message, icon: error.icon!),
-            loaded: (countries) => CustomScrollView(
-              physics: const BouncingScrollPhysics(),
+            loaded: (countries) =>CustomScrollView(
+              physics:  const BouncingScrollPhysics(),
               slivers: [
                 CustomSliverAppBar(
                   onSearchChanged: (value) => context.read<HomeCubit>().search(value!),
@@ -56,7 +56,7 @@ class _HomePageState extends State<HomePage> {
           );
         },
       ),
-      floatingActionButton: AnimatedRetryButton(),
+      floatingActionButton: const AnimatedRetryButton(),
     );
   }
 }

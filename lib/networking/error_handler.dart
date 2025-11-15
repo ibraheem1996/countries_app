@@ -58,7 +58,7 @@ class ErrorHandler {
         return const Failure.empty(message: 'No data found.');
       }
 
-      return Failure.unexpected(message: 'An unexpected issue occurred. Please try again.');
+      return const Failure.unexpected(message: 'An unexpected issue occurred. Please try again.');
     } catch (_) {
       return const Failure.unexpected(message: 'A critical internal error occurred.');
     }
