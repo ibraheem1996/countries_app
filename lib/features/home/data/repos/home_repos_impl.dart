@@ -22,7 +22,6 @@ class HomeRepositoryImpl implements HomeRepository {
       final data = dtos.map((e) => e.toJson()).toList();
       await localDataSource.save(jsonEncode(data));
       final entities = dtos.map((e) => e.toEntity()).toList();
-
       return ApiResult.success(entities);
     } catch (e) {
       final cached = localDataSource.getCountries();
@@ -45,6 +44,6 @@ class HomeRepositoryImpl implements HomeRepository {
     final List<HomeModel> decode = (jsonDecode(cached) as List)
         .map<HomeModel>((e) => HomeModel.fromJson(e))
         .toList();
-        return decode.map((e)=>e.toEntity() ).toList();
+    return decode.map((e) => e.toEntity()).toList();
   }
 }

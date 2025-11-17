@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
             error: (e) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(e.failure.message),
+                  content: Text(e.failure.message ),
                   behavior: SnackBarBehavior.floating,
                   backgroundColor: Colors.redAccent.shade200,
                   duration: const Duration(seconds: 3),

@@ -1,12 +1,14 @@
+import 'package:countries/coor/helper/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../coor/theme/app_radius.dart';
 import '../../logic/home_cubit.dart';
 
 class RetryWidget extends StatefulWidget {
   final String message;
   final Icon icon;
-  const RetryWidget({super.key, required this.message, required this.icon, });
+  const RetryWidget({super.key, required this.message, required this.icon});
 
   @override
   State<RetryWidget> createState() => _RetryWidgetState();
@@ -46,28 +48,30 @@ class _RetryWidgetState extends State<RetryWidget> with SingleTickerProviderStat
         scale: _animation,
         child: Column(
           mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            widget.icon,
-            const SizedBox(height: 16),
+            SizedBox(height: context.h36, child: widget.icon),
+            SizedBox(height: context.h20),
             Text(
-               widget.message,
+              widget.message,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 16,
-                color: Colors.black87,
-                fontWeight: FontWeight.w500,
-              ),
+              style: context.textTheme.bodyLarge,
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: context.h24),
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blueAccent,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                backgroundColor: context.scheme.primary,
+                shape: const RoundedRectangleBorder(borderRadius: AppRadius.r12),
+                padding: EdgeInsets.symmetric(horizontal: context.w24, vertical: context.w12),
               ),
               onPressed: _retry,
-              icon: const Icon(Icons.refresh_rounded, color: Colors.white),
-              label: const Text("Retry", style: TextStyle(color: Colors.white, fontSize: 16)),
+              icon: Icon(Icons.refresh_rounded, color: context.scheme.onPrimary),
+              label: Text(
+                "Retry",
+                style: context.textTheme.bodyLarge?.copyWith(color: context.scheme.onPrimary),
+              ),
             ),
           ],
         ),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../app_radius.dart';
-import '../app_sizes.dart';
 import 'app_dark_colors.dart';
 import 'app_dark_text_theme.dart';
+
 
 class AppDarkTheme {
   static ThemeData darkTheme = ThemeData(
@@ -21,7 +21,7 @@ class AppDarkTheme {
       onSecondary: Colors.white,
 
       surface: AppDarkColors.surface,
-      surfaceContainerLowest: AppDarkColors.surfaceContainerLowest, 
+      surfaceContainerLowest: AppDarkColors.surfaceContainerLowest,
 
       onSurface: AppDarkColors.textPrimary,
 
@@ -32,14 +32,9 @@ class AppDarkTheme {
     ),
 
     // -------------------------
-    // TEXT THEME
+    //! TEXT THEME
     // -------------------------
-    textTheme: const TextTheme(
-      displayLarge: AppDarkTextTheme.headline,
-      headlineLarge: AppDarkTextTheme.title,
-      bodyLarge: AppDarkTextTheme.body,
-      bodyMedium: AppDarkTextTheme.small,
-    ),
+    textTheme: AppDarkTextTheme.darkTextTheme,
 
     // -------------------------
     // APP BAR

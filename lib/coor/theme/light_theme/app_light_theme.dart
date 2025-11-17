@@ -33,12 +33,7 @@ class AppLightTheme {
     // -------------------------
     // TEXT THEME
     // -------------------------
-    textTheme: const TextTheme(
-      displayLarge: AppLightTextTheme.headline,
-      headlineLarge: AppLightTextTheme.title,
-      bodyLarge: AppLightTextTheme.body,
-      bodyMedium: AppLightTextTheme.small,
-    ),
+    textTheme:  AppLightTextTheme.lightTextTheme,
 
     // -------------------------
     // APP BAR
