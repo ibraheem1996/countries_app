@@ -43,8 +43,8 @@ class _HomePageState extends State<HomePage> {
             initial: () => const SizedBox.shrink(),
             loading: () => const Center(child: CircularProgressIndicator()),
             error: (error) => RetryWidget(message: error.message, icon: error.icon!),
-            loaded: (countries) =>CustomScrollView(
-              physics:  const BouncingScrollPhysics(),
+            loaded: (countries) => CustomScrollView(
+              physics: const BouncingScrollPhysics(),
               slivers: [
                 CustomSliverAppBar(
                   onSearchChanged: (value) => context.read<HomeCubit>().search(value!),

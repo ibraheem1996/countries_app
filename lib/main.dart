@@ -1,11 +1,14 @@
 import 'dart:async';
 import 'dart:ui';
 
+import 'package:countries/coor/theme/theme_cubit.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'coor/dependency/dependency_get_it.dart';
+import 'coor/theme/dark_theme/app_dark_theme.dart';
+import 'coor/theme/light_theme/app_light_theme.dart';
 import 'features/home/logic/home_cubit.dart';
 import 'features/home/ui/home.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -27,7 +30,7 @@ void main() {
         return true;
       };
 
-      runApp(const MyApp());
+      runApp(BlocProvider(create: (context) => ThemeCubit(), child: const MyApp()));
     },
     (error, stack) {
       FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
@@ -40,9 +43,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: BlocProvider(create: (context) => getIt<HomeCubit>(), child: const HomePage()),
+    return BlocBuilder<ThemeCubit, ThemeMode>(
+      builder: (context, themeMode) {
+        return MaterialApp(
+          theme: AppLightTheme.lightTheme,
+          darkTheme: AppDarkTheme.darkTheme,
+          themeMode: themeMode,
+          debugShowCheckedModeBanner: false,
+          home: BlocProvider(create: (context) => getIt<HomeCubit>(), child: const HomePage()),
+        );
+      },
     );
   }
 }
