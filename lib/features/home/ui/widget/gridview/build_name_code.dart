@@ -1,44 +1,39 @@
+import 'package:countries/coor/helper/extension.dart';
 import 'package:flutter/material.dart';
 
 import '../../../domain/entities.dart';
 
-Widget buildNameAndCode(Country country) {
+Widget buildNameAndCode(Country country, BuildContext context) {
   final subName = (country.capital.isNotEmpty && country.capital.first.isNotEmpty)
       ? country.capital.first
       : country.nameCommon ?? country.nameOfficial ?? "";
 
   return Container(
-    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+    padding: EdgeInsets.symmetric( vertical: context.h4),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Colors.blueGrey.shade50, Colors.transparent],
+        colors: [context.scheme.surfaceContainerLowest, context.scheme.surfaceContainerLow],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       ),
       borderRadius: const BorderRadius.vertical(bottom: Radius.circular(18)),
     ),
     child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
       children: [
         Text(
           country.nameCommon ?? country.nameOfficial ?? "",
           textAlign: TextAlign.center,
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Colors.black87),
+          style: context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w800),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),
-        const SizedBox(height: 5),
-        Expanded(
-          child: Text(
-            subName.toString(),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w500,
-              color: Colors.grey.shade600,
-            ),
-          ),
+        SizedBox(height: context.h4),
+        Text(
+          subName,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: context.textTheme.bodyMedium,
         ),
       ],
     ),

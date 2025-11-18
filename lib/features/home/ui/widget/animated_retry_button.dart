@@ -1,3 +1,4 @@
+import 'package:countries/coor/helper/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../logic/home_cubit.dart';
@@ -47,7 +48,7 @@ class _AnimatedRetryButtonState extends State<AnimatedRetryButton>
       child: FloatingActionButton(
         heroTag: 'retry_button',
         onPressed: _onPressed,
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: context.scheme.primary,
         child: RotationTransition(
           turns: Tween<double>(
             begin: 0,

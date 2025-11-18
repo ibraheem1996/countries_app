@@ -23,6 +23,8 @@ class AppLightTheme {
       surface: AppLightColors.surface,
       onSurface: AppLightColors.textPrimary,
       surfaceContainerLowest:AppLightColors.surfaceContainerLowest, 
+            surfaceContainerLow: AppLightColors.surfaceContainerLow,
+
 
       error: AppLightColors.error,
       onError: Colors.white,

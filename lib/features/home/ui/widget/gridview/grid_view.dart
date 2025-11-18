@@ -1,3 +1,4 @@
+import 'package:countries/coor/helper/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,7 +22,7 @@ class GridViewBuilder extends StatelessWidget {
         crossAxisCount: 2,
         crossAxisSpacing: 20,
         mainAxisSpacing: 20,
-        childAspectRatio: 0.85,
+        childAspectRatio: 0.90,
       ),
       delegate: SliverChildBuilderDelegate((context, index) {
         final country = countries[index];
@@ -29,8 +30,6 @@ class GridViewBuilder extends StatelessWidget {
 
         return AnimatedCard(
           onTap: () async {
-            if (country.cca3 == null) return;
-            // await Future.delayed(const Duration(seconds: 1));
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -46,7 +45,7 @@ class GridViewBuilder extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Expanded(flex: 6, child: buildFlag(imageUrl)),
-                Expanded(flex: 3, child: buildNameAndCode(country)),
+                Expanded(flex: 2, child: buildNameAndCode(country, context)),
               ],
             ),
           ),

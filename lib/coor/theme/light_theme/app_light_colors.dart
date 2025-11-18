@@ -6,7 +6,8 @@ class AppLightColors {
   static const Color secondary = Color(0xFF0089D1);
 
   static const Color surface = Colors.white;
-  static const Color surfaceContainerLowest = Color.fromARGB(255, 245, 242, 242);
+static const Color surfaceContainerLowest = Color(0xFFF7F7F8);
+  static const Color surfaceContainerLow = Color.fromARGB(255, 184, 187, 194);
 
   static const Color appBarColor = Colors.white30;
 

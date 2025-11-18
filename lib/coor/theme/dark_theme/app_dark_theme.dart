@@ -22,6 +22,8 @@ class AppDarkTheme {
 
       surface: AppDarkColors.surface,
       surfaceContainerLowest: AppDarkColors.surfaceContainerLowest,
+      surfaceContainerLow: AppDarkColors.surfaceContainerLow,
+      
 
       onSurface: AppDarkColors.textPrimary,
 
