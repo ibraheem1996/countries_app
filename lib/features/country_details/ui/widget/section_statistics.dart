@@ -8,20 +8,20 @@ class SectionStatistics extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return basicWidgetCard(
+    return BasicWidgetCard(
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          textTitel('Statistics'),
+          textTitle('Statistics', context),
 
           const SizedBox(height: 8),
-          rowInfo('Population', '${data.population ?? "Unknown"}'),
+          RowInfo('Population', '${data.population ?? "Unknown"}'),
 
-          rowInfo('Area', '${data.area ?? 0} km²'),
+          RowInfo('Area', '${data.area ?? 0} km²'),
 
-          rowInfo('Currency', data.currencies),
+          RowInfo('Currency', data.currencies),
 
-          rowInfo('FIFA Code', data.fifa, lastRow: true),
+          RowInfo('FIFA Code', data.fifa, lastRow: true),
         ],
       ),
     );

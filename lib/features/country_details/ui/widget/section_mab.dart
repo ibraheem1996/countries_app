@@ -45,7 +45,7 @@ class CountryLocation extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: _openMap,
-      child: basicWidgetCard(
+      child: BasicWidgetCard(
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

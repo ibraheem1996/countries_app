@@ -8,19 +8,18 @@ class SectionCommunication extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-final String idd = data.root != null ? '${data.root}${data.suffixes.join(",")}' : 'Unknown';
+    final String idd = data.root != null ? '${data.root}${data.suffixes.join(",")}' : 'Unknown';
 
-    return basicWidgetCard(
+    return BasicWidgetCard(
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          textTitel('Communication'),
-          rowInfo('Phone Code', idd),
-          rowInfo('Drive Side', data.carSide),
-          rowInfo('Car Signs', data.carSigns.join(", "), lastRow: true),
+          textTitle('Communication', context),
+          RowInfo('Phone Code', idd),
+          RowInfo('Drive Side', data.carSide),
+          RowInfo('Car Signs', data.carSigns.join(", "), lastRow: true),
         ],
       ),
     );
-
   }
 }

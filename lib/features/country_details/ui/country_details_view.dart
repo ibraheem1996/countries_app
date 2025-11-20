@@ -39,7 +39,7 @@ class _CountryDetailsPageState extends State<CountryDetailsPage> {
       body: BlocBuilder<DetailsCubit, DetailsState>(
         builder: (context, state) {
           return state.when(
-            initial: () => const Center(child: CircularProgressIndicator()),
+            initial: () => const SizedBox.shrink(),
             loading: () => const Center(child: CircularProgressIndicator()),
             error: (e) => Center(child: Text(e.message)),
             loaded: (detailsModel) {
@@ -66,6 +66,7 @@ class _CountryDetailsPageState extends State<CountryDetailsPage> {
                           SectionBorders(data: data),
                           const SizedBox(height: 16),
                           SectionAdditional(data: data),
+                          const SizedBox(height: 16),
                           CountryGeography(data: data),
                           const SizedBox(height: 16),
                           SectionCommunication(data: data),

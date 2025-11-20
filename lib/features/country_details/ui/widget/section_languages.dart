@@ -8,18 +8,14 @@ class SectionLanguages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return basicWidgetCard(
+    return BasicWidgetCard(
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          textTitel('Languages'),
+          textTitle('Languages', context),
 
           const SizedBox(height: 8),
-          Text(
-            data.languages.values.join(" , ") ,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
+          Text(data.languages.values.join(" , "), maxLines: 1, overflow: TextOverflow.ellipsis),
         ],
       ),
     );

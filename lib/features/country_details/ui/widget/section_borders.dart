@@ -1,3 +1,4 @@
+import 'package:countries/coor/helper/extension.dart';
 import 'package:countries/features/country_details/ui/widget/basic_widget_card.dart';
 import 'package:flutter/material.dart';
 import '../../doman/entities.dart';
@@ -9,13 +10,13 @@ class SectionBorders extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final borders = data.borders.join(" , ");
-    return basicWidgetCard(
+    return BasicWidgetCard(
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          textTitel('Bordering Countries'),
+          textTitle('Bordering Countries', context),
 
-          const SizedBox(height: 8),
+          SizedBox(height: context.h8),
           Text(borders, maxLines: 2, overflow: TextOverflow.ellipsis),
         ],
       ),

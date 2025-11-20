@@ -1,3 +1,4 @@
+import 'package:countries/coor/helper/extension.dart';
 import 'package:flutter/material.dart';
 import '../../doman/entities.dart';
 import 'basic_widget_card.dart';
@@ -9,18 +10,18 @@ class CountryGeography extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final latlng = data.latlng != null ? '${data.latlng![0]}, ${data.latlng![1]}' : 'Unknown';
-    return basicWidgetCard(
+    return BasicWidgetCard(
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          textTitel('Geography'),
+          textTitle('Geography', context),
 
-          const SizedBox(height: 8),
-          rowInfo('Region', data.region),
-          rowInfo('Subregion', data.subregion),
-          rowInfo('Coordinates', latlng),
-          rowInfo('Landlocked', data.landlocked == true ? 'Yes' : 'No'),
-          rowInfo('Area', data.area?.toStringAsFixed(0), lastRow: true),
+          SizedBox(height: context.h8),
+          RowInfo('Region', data.region),
+          RowInfo('Subregion', data.subregion),
+          RowInfo('Coordinates', latlng),
+          RowInfo('Landlocked', data.landlocked == true ? 'Yes' : 'No'),
+          RowInfo('Area', data.area?.toStringAsFixed(0), lastRow: true),
         ],
       ),
     );

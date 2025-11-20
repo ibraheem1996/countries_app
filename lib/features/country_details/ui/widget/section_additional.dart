@@ -1,3 +1,4 @@
+import 'package:countries/coor/helper/extension.dart';
 import 'package:flutter/material.dart';
 import '../../doman/entities.dart';
 import 'basic_widget_card.dart';
@@ -8,20 +9,19 @@ class SectionAdditional extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return basicWidgetCard(
+    return BasicWidgetCard(
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          textTitel('Additional Info'),
- 
+          textTitle('Additional Info', context),
 
-          const SizedBox(height: 10),
-          rowInfo('Driving Side', data.carSide ),
-          rowInfo('Plate Code', data.carSigns.join(" , ") ),
-          rowInfo('Timezone', data.timezones.join(" , ") ),
-          rowInfo('Start of Week', data.startOfWeek ),
-          rowInfo('Gini Index', data.gini?.values.first.toString() ),
-          rowInfo('Top-Level Domain', data.tld?.join(" , ") , lastRow: true),
+          SizedBox(height: context.h8),
+          RowInfo('Driving Side', data.carSide),
+          RowInfo('Plate Code', data.carSigns.join(" , ")),
+          RowInfo('Timezone', data.timezones.join(" , ")),
+          RowInfo('Start of Week', data.startOfWeek),
+          RowInfo('Gini Index', data.gini?.values.first.toString()),
+          RowInfo('Top-Level Domain', data.tld?.join(" , "), lastRow: true),
         ],
       ),
     );

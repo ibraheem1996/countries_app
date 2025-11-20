@@ -1,3 +1,4 @@
+import 'package:countries/coor/helper/extension.dart';
 import 'package:flutter/material.dart';
 import '../../doman/entities.dart';
 import 'basic_widget_card.dart';
@@ -8,34 +9,48 @@ class CountryIdentifiers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return basicWidgetCard(
+    return BasicWidgetCard(
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          textTitel('Country Codes'),
-          const SizedBox(height: 8),
-          _row('CCA2', data.cca2),
-          _row('CCA3', data.cca3),
-          _row('CCN3', data.ccn3),
-          _row('CIOC', data.cioc),
-          _row('Status', data.status),
+          textTitle('Country Codes', context),
+          SizedBox(height: context.h8),
+
+          _Row('CCA2', data.cca2),
+          _Row('CCA3', data.cca3),
+          _Row('CCN3', data.ccn3),
+          _Row('CIOC', data.cioc),
+          _Row('Status', data.status),
         ],
       ),
     );
   }
+}
 
-  Widget _row(String label, String? value) => value == null
-      ? const SizedBox.shrink()
-      : Padding(
-          padding: const EdgeInsets.symmetric(vertical: 2),
-          child: Row(
-            children: [
-              Text('$label: ', style: const TextStyle(fontWeight: FontWeight.w500)),
-              const SizedBox(width: 5),
-              Expanded(
-                child: Text(value, style: const TextStyle(color: Colors.grey)),
-              ),
-            ],
-          ),
-        );
+class _Row extends StatelessWidget {
+  const _Row(this.label, this.value);
+
+  final String label;
+  final String? value;
+
+  @override
+  Widget build(BuildContext context) {
+    return value == null
+        ? const SizedBox.shrink()
+        : Padding(
+            padding: EdgeInsets.symmetric(vertical: context.h4),
+            child: Row(
+              children: [
+                Text('$label: ', style: const TextStyle(fontWeight: FontWeight.w500)),
+                const SizedBox(width: 5),
+                Expanded(
+                  child: Text(
+                    value!,
+                    style: context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w500),
+                  ),
+                ),
+              ],
+            ),
+          );
+  }
 }
