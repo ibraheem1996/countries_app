@@ -2,7 +2,10 @@ import 'dart:async';
 import 'dart:ui';
 
 import 'package:countries/coor/theme/theme_cubit.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
+import 'package:firebase_performance/firebase_performance.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,14 +24,31 @@ void main() {
       await setupGetIt();
       await Firebase.initializeApp();
 
-      FlutterError.onError = (errorDetails) {
-        FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+      final crashlytics = FirebaseCrashlytics.instance;
+      final analytics = FirebaseAnalytics.instance;
+      final remoteConfig = FirebaseRemoteConfig.instance;
+      final performance = FirebasePerformance.instance;
+
+      FlutterError.onError = (FlutterErrorDetails details) {
+        crashlytics.recordFlutterFatalError(details);
       };
 
       PlatformDispatcher.instance.onError = (error, stack) {
-        FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+        crashlytics.recordError(error, stack, fatal: true);
         return true;
       };
+
+      await performance.setPerformanceCollectionEnabled(true);
+
+      await remoteConfig.setConfigSettings(
+        RemoteConfigSettings(
+          fetchTimeout: const Duration(seconds: 10),
+          minimumFetchInterval: const Duration(minutes: 1),
+        ),
+      );
+
+      await remoteConfig.fetchAndActivate();
+
 
       runApp(BlocProvider(create: (context) => ThemeCubit(), child: const MyApp()));
     },
@@ -50,7 +70,7 @@ class MyApp extends StatelessWidget {
           darkTheme: AppDarkTheme.darkTheme,
           themeMode: themeMode,
           debugShowCheckedModeBanner: false,
-          home: BlocProvider(create: (context) => getIt<HomeCubit>(), child: const HomePage()),
+          home: BlocProvider(create: (_) => getIt<HomeCubit>(), child: const HomePage()),
         );
       },
     );
