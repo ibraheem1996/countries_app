@@ -6,28 +6,26 @@ class SectionBasicInfo extends StatelessWidget {
   final CountryDetailsEntities data;
   const SectionBasicInfo({super.key, required this.data});
   String? _capital() {
-      if (data.capital.any((c) => c == "Ramallah")) {
-        return "Alqds";
-      }
-      return data.capital.join(" , ");
-    
+    if (data.capital.any((c) => c == "Ramallah")) {
+      return "Alqds";
+    }
+    return data.capital.join(" , ");
   }
 
   @override
   Widget build(BuildContext context) {
-
-    return basicWidgetCard(
+    return BasicWidgetCard(
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          textTitel('Basic Info'),
+          textTitle('Basic Info', context),
 
-          rowInfo('Official Name', data.nameOfficial),
-          rowInfo("Capital", _capital()),
-          rowInfo("Region", data.region),
-          rowInfo("Subregion", data.subregion),
-          rowInfo("Independent", data.independent == true ? "Yes" : "No"),
-          rowInfo("UN Member", data.unMember == true ? "Yes" : "No", lastRow: true),
+          RowInfo('Official Name', data.nameOfficial),
+          RowInfo("Capital", _capital()),
+          RowInfo("Region", data.region),
+          RowInfo("Subregion", data.subregion),
+          RowInfo("Independent", data.independent == true ? "Yes" : "No"),
+          RowInfo("UN Member", data.unMember == true ? "Yes" : "No", lastRow: true),
         ],
       ),
     );

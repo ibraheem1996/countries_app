@@ -11,10 +11,10 @@ part 'details_cubit.freezed.dart';
 
 class DetailsCubit extends Cubit<DetailsState> {
   final GetDetailsCountryUseCase detailsUseCase;
-  DetailsCubit({required this.detailsUseCase}) : super(DetailsState.initial());
+  DetailsCubit({required this.detailsUseCase}) : super(const DetailsState.initial());
 
   Future<void> getDetails(String cca3) async {
-    emit(DetailsState.loading());
+    emit(const DetailsState.loading());
     final result = await detailsUseCase(cca3);
     result.when(
       success: (data) {

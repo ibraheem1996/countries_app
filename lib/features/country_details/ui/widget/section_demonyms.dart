@@ -8,17 +8,17 @@ class SectionPeople extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return basicWidgetCard(
+    return BasicWidgetCard(
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          textTitel('People'),
+          textTitle('People', context),
 
           const SizedBox(height: 8),
-          rowInfo('English (Male)', data.demonymMaleEng),
-          rowInfo('English (Female)', data.demonymFemaleEng),
-          rowInfo('French (Male)', data.demonymMaleFra),
-          rowInfo('French (Female)', data.demonymFemaleFra, lastRow: true),
+          RowInfo('English (Male)', data.demonymMaleEng),
+          RowInfo('English (Female)', data.demonymFemaleEng),
+          RowInfo('French (Male)', data.demonymMaleFra),
+          RowInfo('French (Female)', data.demonymFemaleFra, lastRow: true),
         ],
       ),
     );

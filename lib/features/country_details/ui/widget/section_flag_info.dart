@@ -9,6 +9,6 @@ class SectionFlagInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return basicWidgetCard(Text("${detailsModel.flag ?? ""}  ${detailsModel.flagAlt??""}"));
+    return BasicWidgetCard(Text("${detailsModel.flag ?? ""}  ${detailsModel.flagAlt ?? ""}"));
   }
 }

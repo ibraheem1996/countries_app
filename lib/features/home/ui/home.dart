@@ -1,9 +1,9 @@
-import 'package:countries/features/home/ui/widget/grid_view.dart';
+import 'package:countries/features/home/ui/widget/gridview/grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:countries/features/home/logic/home_cubit.dart';
-
-import '../domain/entities.dart' show Country;
+import 'widget/animated_retry_button.dart';
+import 'widget/page_retry.dart';
 import 'widget/sliver_app_bar.dart';
 
 class HomePage extends StatefulWidget {
@@ -27,60 +27,36 @@ class _HomePageState extends State<HomePage> {
         listener: (context, state) {
           state.mapOrNull(
             error: (e) {
-              ScaffoldMessenger.of(
-                context,
-              ).showSnackBar(SnackBar(content: Text(e.failure.message)));
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(e.failure.message ),
+                  behavior: SnackBarBehavior.floating,
+                  backgroundColor: Colors.redAccent.shade200,
+                  duration: const Duration(seconds: 3),
+                ),
+              );
             },
           );
         },
         builder: (context, state) {
-          if (state is Loading) {
-            return const Center(child: CircularProgressIndicator());
-          }
-
-          if (state is Loaded) {
-            final List<Country> countries = state.modeles;
-
-            return CustomScrollView(
+          return state.when(
+            initial: () => const SizedBox.shrink(),
+            loading: () => const Center(child: CircularProgressIndicator()),
+            error: (error) => RetryWidget(message: error.message, icon: error.icon!),
+            loaded: (countries) => CustomScrollView(
+              physics: const BouncingScrollPhysics(),
               slivers: [
                 CustomSliverAppBar(
                   onSearchChanged: (value) => context.read<HomeCubit>().search(value!),
                   onFilterChanged: (filter) => context.read<HomeCubit>().setFilter(filter),
                 ),
-                SliverToBoxAdapter(
-                  child: TextButton(
-                    onPressed: () => throw Exception(),
-                    child: const Text("Throw Test Exception"),
-                  ),
-                ),
-
                 GridViewBuilder(countries: countries),
               ],
-            );
-          }
-
-          if (state is Error) {
-            return Center(
-              child: Text(
-                state.failure.message,
-                style: const TextStyle(color: Colors.red, fontSize: 18),
-              ),
-            );
-          }
-
-          return const Center(
-            child: Text(
-              "Press the refresh button to load countries 🌎",
-              style: TextStyle(fontSize: 16),
-              textAlign: TextAlign.center,
             ),
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => context.read<HomeCubit>().getHomeData(),
-        child: const Icon(Icons.refresh),
-      ),
+      floatingActionButton: const AnimatedRetryButton(),
     );
   }
 }

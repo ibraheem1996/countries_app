@@ -1,66 +1,91 @@
+import 'package:countries/coor/helper/extension.dart';
 import 'package:flutter/material.dart';
+import '../../../../coor/theme/app_radius.dart';
 
-Widget basicWidgetCard(Widget child) {
-  return Card(
-    elevation: 7.5,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
-    child: Padding(padding: const EdgeInsets.all(16), child: child),
-  );
+class BasicWidgetCard extends StatelessWidget {
+  final Widget child;
+  const BasicWidgetCard(this.child, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: context.scheme.surfaceContainerLowest,
+      elevation: 7.5,
+      shape: const RoundedRectangleBorder(borderRadius: AppRadius.r12),
+      child: Padding(padding: const EdgeInsets.symmetric(vertical: 12), child: child),
+    );
+  }
 }
 
-Widget rowInfo(String title, String? value, {bool lastRow = false}) {
-  if (value == null || value.isEmpty) return const SizedBox.shrink();
+class RowInfo extends StatelessWidget {
+  final String title;
+  final String? value;
+  final bool lastRow;
 
-  return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-    child: LayoutBuilder(
-      builder: (context, constraints) {
-        final TextSpan span = TextSpan(text: value);
-        final TextPainter tp = TextPainter(
-          text: span,
-          textDirection: TextDirection.ltr,
-          maxLines: 1,
-        )..layout(maxWidth: constraints.maxWidth * 0.6);
+  const RowInfo(this.title, this.value, {super.key, this.lastRow = false});
 
-        final isMultiline = tp.didExceedMaxLines;
+  @override
+  Widget build(BuildContext context) {
+    if ((value ?? "").isEmpty) return const SizedBox.shrink();
 
-        if (isMultiline) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: context.w4, vertical: context.w4),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          // Detect if long
+          final painter = TextPainter(
+            text: TextSpan(text: value),
+            textDirection: TextDirection.ltr,
+            maxLines: 1,
+          )..layout(maxWidth: constraints.maxWidth * 0.6);
+
+          final isMultiline = painter.didExceedMaxLines;
+
+          if (isMultiline) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
+                ),
+                SizedBox(height: context.h4),
+                Text(value!, maxLines: 3, overflow: TextOverflow.ellipsis),
+              ],
+            );
+          }
+
           return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title, style: const TextStyle(fontWeight: FontWeight.w600)),
-              const SizedBox(height: 3),
-              Text(value, maxLines: 3, overflow: TextOverflow.ellipsis),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    title,
+                    style: context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
+                  ),
+                  Flexible(
+                    child: Text(
+                      value!,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.end,
+                    ),
+                  ),
+                ],
+              ),
+
+              if (lastRow != true) Divider(color: Colors.grey.shade400),
             ],
           );
-        }
-
-        return Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(title, style: const TextStyle(fontWeight: FontWeight.w600)),
-                Flexible(
-                  child: Text(
-                    value,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.end,
-                  ),
-                ),
-              ],
-            ),
-            if (!lastRow) Divider(color: Colors.grey.shade400),
-          ],
-        );
-      },
-    ),
-  );
+        },
+      ),
+    );
+  }
 }
 
-Widget textTitel(String title) {
+Widget textTitle(String title, BuildContext context) {
   return Center(
-    child: Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+    child: Text(title, style: context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600)),
   );
 }

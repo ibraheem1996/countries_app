@@ -23,6 +23,8 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit({required this.countriesUseCase}) : super(const HomeState.initial());
 
   Future<void> getHomeData() async {
+    // emit(const HomeState.error(Failure.empty()));
+    // return;
     final cachedData = await countriesUseCase.getCachedCountries();
 
     if (cachedData != null && cachedData.isNotEmpty) {

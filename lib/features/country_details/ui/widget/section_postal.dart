@@ -1,3 +1,4 @@
+import 'package:countries/coor/helper/extension.dart';
 import 'package:flutter/material.dart';
 import '../../doman/entities.dart';
 import 'basic_widget_card.dart';
@@ -8,15 +9,15 @@ class SectionPostal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return basicWidgetCard(
+    return BasicWidgetCard(
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          textTitel('Postal Code'),
+          textTitle('Postal Code', context),
 
-          const SizedBox(height: 8),
-          rowInfo('Format', data.postalFormat),
-          rowInfo('Regex', data.postalRegex, lastRow: true),
+          SizedBox(height: context.h8),
+          RowInfo('Format', data.postalFormat),
+          RowInfo('Regex', data.postalRegex, lastRow: true),
         ],
       ),
     );

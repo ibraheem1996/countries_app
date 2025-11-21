@@ -6,11 +6,11 @@ class SectionTranslations extends StatelessWidget {
   final CountryDetailsEntities data;
   const SectionTranslations({super.key, required this.data});
 
-@override
+  @override
   Widget build(BuildContext context) {
     final translations = data.translations;
 
-    return basicWidgetCard(
+    return BasicWidgetCard(
       ExpansionTile(
         title: const Text('Translations'),
         children: (translations ?? {}).entries
@@ -24,5 +24,4 @@ class SectionTranslations extends StatelessWidget {
       ),
     );
   }
-
 }
