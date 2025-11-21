@@ -1,6 +1,7 @@
 // lib/coor/dependency/dependency_get_it.dart
 import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
+import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../features/country_details/data/data_sourse/local_details_data_sourse.dart';
@@ -27,7 +28,10 @@ Future<void> setupGetIt() async {
   //! SharedPreferences
   final SharedPreferences pref = await SharedPreferences.getInstance();
   getIt.registerSingleton<SharedPreferences>(pref);
-
+  
+//!logger
+  getIt.registerLazySingleton<Logger>(() => Logger());
+ 
   //!================Home===============================
 
   //!HOME LOCAL DATA SOURCE
