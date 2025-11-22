@@ -1,4 +1,3 @@
-import 'package:countries/coor/helper/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,12 +16,13 @@ class GridViewBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isOrientation = MediaQuery.of(context).orientation == Orientation.portrait;
     return SliverGrid(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: 20,
         mainAxisSpacing: 20,
-        childAspectRatio: 0.90,
+        childAspectRatio: isOrientation ? 0.90 : 1.5,
       ),
       delegate: SliverChildBuilderDelegate((context, index) {
         final country = countries[index];
@@ -35,7 +35,7 @@ class GridViewBuilder extends StatelessWidget {
               MaterialPageRoute(
                 builder: (_) => BlocProvider(
                   create: (_) => getIt<DetailsCubit>(),
-                  child: CountryDetailsPage(cca3: country.cca3!),
+                  child: CountryDetailsPage(cca3: country.cca3),
                 ),
               ),
             );

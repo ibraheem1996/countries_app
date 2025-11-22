@@ -4,10 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../domain/entities.dart';
 
 Widget buildNameAndCode(Country country, BuildContext context) {
-  final subName = (country.capital.isNotEmpty && country.capital.first.isNotEmpty)
-      ? country.capital.first
-      : country.nameCommon ?? country.nameOfficial ?? "";
-
+  final subName = country.capital =="" ? country.region :  country.capital;
   return Container(
     padding: EdgeInsets.symmetric( vertical: context.h4),
     decoration: BoxDecoration(
@@ -22,7 +19,7 @@ Widget buildNameAndCode(Country country, BuildContext context) {
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
-          country.nameCommon ?? country.nameOfficial ?? "",
+          country.name,
           textAlign: TextAlign.center,
           style: context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w800),
           maxLines: 1,

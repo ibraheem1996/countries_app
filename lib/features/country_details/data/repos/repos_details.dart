@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:countries/features/country_details/data/data_sourse/local_details_data_sourse.dart';
-import 'package:countries/features/country_details/data/mapper/details_mapper.dart';
+import 'package:countries/features/country_details/data/model/details_mapper.dart';
 import 'package:countries/features/country_details/data/model/details_model.dart';
 
 import '../../../../networking/api_result.dart';

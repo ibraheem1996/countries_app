@@ -76,32 +76,28 @@ class HomeCubit extends Cubit<HomeState> {
 
     bool startsWith(String? text) => (text ?? '').toLowerCase().startsWith(q);
 
-    final filtered = _allCountries.where((country) {
+final filtered = _allCountries.where((country) {
+      final query = q.toLowerCase();
+
+      bool swc(String? s) => s?.toLowerCase().startsWith(query) ?? false;
+
       switch (_currentFilter) {
         case 'Code':
-          final root = country.phoneRoot ?? '';
-          final suffix = (country.phoneSuffixes).join('');
-          final phone = '$root$suffix';
 
-          final cleanPhone = phone.replaceAll('+', '');
-          final cleanQuery = q.replaceAll('+', '');
+          final codeString = country.callingCodes.join('');
 
-          bool swc(String s) => s.toLowerCase().startsWith(cleanQuery);
-
-          return swc(phone) ||
-              swc(cleanPhone) ||
-              swc(root) ||
-              startsWith(country.cca2) ||
-              startsWith(country.cca3);
+          return swc(codeString) || swc(country.cca2) || swc(country.cca3);
 
         case 'Capital':
-          return country.capital.any(startsWith);
+          return swc(country.capital);
 
         case 'Language':
-          return country.languages.any(startsWith);
+          return country.languages.any((langMap) {
+            return langMap.values.any((v) => swc(v));
+          });
 
         default: // Name
-          return startsWith(country.nameCommon) || startsWith(country.nameOfficial);
+          return swc(country.name);
       }
     }).toList();
 

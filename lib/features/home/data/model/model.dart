@@ -3,61 +3,39 @@ part 'model.g.dart';
 
 @JsonSerializable()
 class HomeModel {
-  final Name? name;
-  final Flags? flags;
-  final String? cca2;
-  final String? cca3;
-  final String? region;
-  final String? subregion;
-  final List<String>? capital;
-  final Map<String, String>? languages;
-  final bool? independent;
-  final int? population;
-  final double? area;
-  final Idd? idd;
+  final String? name;
 
-  HomeModel(
-    this.idd, {
+  final String? capital;
+
+  final Flags? flags;
+
+  final String? alpha2Code;
+
+  final String? alpha3Code;
+
+  final String? region;
+
+  final String? subregion;
+
+
+  final List<Map<String,String>>? languages;
+
+  final List<String>? callingCodes;
+
+  HomeModel({
     this.name,
     this.flags,
-    this.cca2,
-    this.cca3,
+    this.alpha2Code,
+    this.alpha3Code,
     this.region,
     this.subregion,
     this.capital,
     this.languages,
-    this.independent,
-    this.population,
-    this.area,
+    this.callingCodes,
   });
 
   factory HomeModel.fromJson(Map<String, dynamic> json) => _$HomeModelFromJson(json);
   Map<String, dynamic> toJson() => _$HomeModelToJson(this);
-}
-
-// -------------------- Name --------------------
-@JsonSerializable()
-class Name {
-  final String? common;
-  final String? official;
-  final Map<String, NativeName>? nativeName;
-
-  Name({this.common, this.official, this.nativeName});
-
-  factory Name.fromJson(Map<String, dynamic> json) => _$NameFromJson(json);
-  Map<String, dynamic> toJson() => _$NameToJson(this);
-}
-
-// -------------------- NativeName --------------------
-@JsonSerializable()
-class NativeName {
-  final String? official;
-  final String? common;
-
-  NativeName({this.official, this.common});
-
-  factory NativeName.fromJson(Map<String, dynamic> json) => _$NativeNameFromJson(json);
-  Map<String, dynamic> toJson() => _$NativeNameToJson(this);
 }
 
 // -------------------- Flags --------------------
@@ -65,21 +43,9 @@ class NativeName {
 class Flags {
   final String? png;
   final String? svg;
-  final String? alt;
 
-  Flags({this.png, this.svg, this.alt});
+  Flags({this.png, this.svg});
 
   factory Flags.fromJson(Map<String, dynamic> json) => _$FlagsFromJson(json);
   Map<String, dynamic> toJson() => _$FlagsToJson(this);
-}
-
-@JsonSerializable()
-class Idd {
-  final String? root;
-  final List<String>? suffixes;
-
-  Idd({this.root, this.suffixes});
-
-  factory Idd.fromJson(Map<String, dynamic> json) => _$IddFromJson(json);
-  Map<String, dynamic> toJson() => _$IddToJson(this);
 }

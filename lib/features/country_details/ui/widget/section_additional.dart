@@ -20,7 +20,6 @@ class SectionAdditional extends StatelessWidget {
           RowInfo('Plate Code', data.carSigns.join(" , ")),
           RowInfo('Timezone', data.timezones.join(" , ")),
           RowInfo('Start of Week', data.startOfWeek),
-          RowInfo('Gini Index', data.gini?.values.first.toString()),
           RowInfo('Top-Level Domain', data.tld?.join(" , "), lastRow: true),
         ],
       ),

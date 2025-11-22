@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../doman/entities.dart';
@@ -16,7 +17,8 @@ class _DetailsHeaderState extends State<DetailsHeader> {
   List<String> get images {
     final flag = widget.data.flagSvg ?? widget.data.flagPng;
     final coat = widget.data.coatSvg ?? widget.data.coatPng;
-    return [flag, coat].whereType<String>().toList();
+
+    return [flag, coat].whereType<String>().where((e) => e.isNotEmpty).toList();
   }
 
   @override
@@ -25,10 +27,7 @@ class _DetailsHeaderState extends State<DetailsHeader> {
       pinned: true,
       expandedHeight: 450,
       flexibleSpace: FlexibleSpaceBar(
-        title: Text(
-          widget.data.nameCommon ,
-          style: const TextStyle(fontWeight: FontWeight.bold),
-        ),
+        title: Text(widget.data.nameCommon, style: const TextStyle(fontWeight: FontWeight.bold)),
         background: Stack(
           fit: StackFit.expand,
           children: [
@@ -37,9 +36,22 @@ class _DetailsHeaderState extends State<DetailsHeader> {
               onPageChanged: (index) => setState(() => currentImage = index),
               itemBuilder: (context, index) {
                 final image = images[index];
-                return image.endsWith('.svg')
-                    ? SvgPicture.network(image, fit: BoxFit.cover)
-                    : Image.network(image, fit: BoxFit.cover);
+
+                return image.toLowerCase().endsWith('.png')
+                    ? CachedNetworkImage(
+                        imageUrl: image,
+                        fit: BoxFit.cover,
+                        placeholder: (_, __) => const Center(
+                          child: SizedBox(
+                            height: 25,
+                            width: 25,
+                            child: CircularProgressIndicator(),
+                          ),
+                        ),
+                        errorWidget: (_, __, ___) =>
+                            const Center(child: Icon(Icons.error, color: Colors.red)),
+                      )
+                    : SvgPicture.network(image, fit: BoxFit.cover);
               },
             ),
             Positioned(

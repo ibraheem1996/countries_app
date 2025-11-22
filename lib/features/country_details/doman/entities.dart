@@ -48,7 +48,7 @@ abstract class CountryDetailsEntities with _$CountryDetailsEntities {
     String? currencies,
     String? fifa,
 
-    Map<String, double>? gini,
+    // Map<String, double>? gini,
     List<String>? tld,
 
     String? currencyName,
