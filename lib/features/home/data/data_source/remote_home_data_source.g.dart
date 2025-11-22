@@ -12,7 +12,7 @@ part of 'remote_home_data_source.dart';
 
 class _RemoteHomeDataSource implements RemoteHomeDataSource {
   _RemoteHomeDataSource(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'https://restcountries.com/v3.1/';
+    baseUrl ??= 'https://www.apicountries.com/';
   }
 
   final Dio _dio;
@@ -31,7 +31,7 @@ class _RemoteHomeDataSource implements RemoteHomeDataSource {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'all?fields=name,flags,cca2,cca3,idd,capital,languages,translations,coatOfArms',
+            'countries',
             queryParameters: queryParameters,
             data: _data,
           )

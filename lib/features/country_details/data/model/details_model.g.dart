@@ -15,9 +15,9 @@ DetailsModel _$DetailsModelFromJson(Map<String, dynamic> json) => DetailsModel(
   independent: json['independent'] as bool?,
   status: json['status'] as String?,
   unMember: json['unMember'] as bool?,
-  currencies: json['currencies'] == null
-      ? null
-      : Currencies.fromJson(json['currencies'] as Map<String, dynamic>),
+  currencies: (json['currencies'] as Map<String, dynamic>?)?.map(
+    (k, e) => MapEntry(k, CurrencyDetail.fromJson(e as Map<String, dynamic>)),
+  ),
   idd: json['idd'] == null
       ? null
       : Idd.fromJson(json['idd'] as Map<String, dynamic>),
@@ -52,9 +52,6 @@ DetailsModel _$DetailsModelFromJson(Map<String, dynamic> json) => DetailsModel(
       ? null
       : Maps.fromJson(json['maps'] as Map<String, dynamic>),
   population: (json['population'] as num?)?.toInt(),
-  gini: (json['gini'] as Map<String, dynamic>?)?.map(
-    (k, e) => MapEntry(k, (e as num).toDouble()),
-  ),
   fifa: json['fifa'] as String?,
   car: json['car'] == null
       ? null
@@ -107,7 +104,6 @@ Map<String, dynamic> _$DetailsModelToJson(DetailsModel instance) =>
       'flag': instance.flag,
       'maps': instance.maps,
       'population': instance.population,
-      'gini': instance.gini,
       'fifa': instance.fifa,
       'car': instance.car,
       'timezones': instance.timezones,
@@ -148,15 +144,6 @@ Translation _$TranslationFromJson(Map<String, dynamic> json) => Translation(
 
 Map<String, dynamic> _$TranslationToJson(Translation instance) =>
     <String, dynamic>{'official': instance.official, 'common': instance.common};
-
-Currencies _$CurrenciesFromJson(Map<String, dynamic> json) => Currencies(
-  currencies: (json['currencies'] as Map<String, dynamic>?)?.map(
-    (k, e) => MapEntry(k, CurrencyDetail.fromJson(e as Map<String, dynamic>)),
-  ),
-);
-
-Map<String, dynamic> _$CurrenciesToJson(Currencies instance) =>
-    <String, dynamic>{'currencies': instance.currencies};
 
 CurrencyDetail _$CurrencyDetailFromJson(Map<String, dynamic> json) =>
     CurrencyDetail(

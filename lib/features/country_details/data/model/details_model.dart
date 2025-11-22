@@ -5,39 +5,73 @@ part 'details_model.g.dart';
 @JsonSerializable()
 class DetailsModel {
   final Name name;
+
   final List<String>? tld;
+
   final String? cca2;
+
   final String? ccn3;
+
   final String? cioc;
+
   final bool? independent;
+
   final String? status;
+
   final bool? unMember;
-  final Currencies? currencies;
+
+final Map<String, CurrencyDetail>? currencies;
+
   final Idd? idd;
+
   final List<String>? capital;
+
   final List<String>? altSpellings;
+
   final String? region;
+
   final String? subregion;
+
   final Map<String, String>? languages;
+
   final List<double>? latlng;
+
   final bool? landlocked;
+
   final List<String>? borders;
+  
   final double? area;
+
   final Demonyms? demonyms;
+
   final String? cca3;
+
   final Map<String, Translation>? translations;
+
   final String? flag;
+
   final Maps? maps;
+
   final int? population;
-  final Map<String, double>? gini;
+
+  // final Map<String, double>? gini;
+
   final String? fifa;
+  
   final Car? car;
+
   final List<String>? timezones;
+
   final List<String>? continents;
+
   final Flags? flags;
+
   final CoatOfArms? coatOfArms;
+  
   final String? startOfWeek;
+
   final CapitalInfo? capitalInfo;
+
   final PostalCode? postalCode;
 
   DetailsModel({
@@ -66,7 +100,7 @@ class DetailsModel {
     this.flag,
     this.maps,
     this.population,
-    this.gini,
+    // this.gini,
     this.fifa,
     this.car,
     this.timezones,
@@ -114,18 +148,11 @@ class Translation {
   Map<String, dynamic> toJson() => _$TranslationToJson(this);
 }
 
-@JsonSerializable()
-class Currencies {
-  final Map<String, CurrencyDetail>? currencies;
-
-  Currencies({this.currencies});
-  factory Currencies.fromJson(Map<String, dynamic> json) => _$CurrenciesFromJson(json);
-  Map<String, dynamic> toJson() => _$CurrenciesToJson(this);
-}
 
 
 @JsonSerializable()
-class CurrencyDetail {
+class 
+CurrencyDetail {
   final String? name;
   final String? symbol;
 

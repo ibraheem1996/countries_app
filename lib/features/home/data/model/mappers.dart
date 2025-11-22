@@ -5,21 +5,20 @@ import 'model.dart';
 extension HomeModelMapper on HomeModel {
   Country toEntity() {
     return Country(
-      nameCommon: name?.common,
-      nameOfficial: name?.official,
+      name: name??"",
       flagPng: flags?.png,
       flagSvg: flags?.svg,
-      cca2: cca2,
-      cca3: cca3,
-      region: region,
-      subregion: subregion,
-      capital: (capital ?? []).whereType<String>().toList(),
-      languages: (languages ?? {}).values.whereType<String>().toList(),
-      independent: independent,
-      population: population,
-      area: area,
-      phoneRoot: idd?.root,
-      phoneSuffixes: (idd?.suffixes ?? []).whereType<String>().toList(),
+      cca3: alpha3Code??"",
+      cca2: alpha2Code??"",
+      region: region??"",
+      subregion: subregion??"",
+      capital: capital??"" ,
+      languages: languages??[],
+      callingCodes: callingCodes??[],
+      
+
+
+
     );
   }
 }

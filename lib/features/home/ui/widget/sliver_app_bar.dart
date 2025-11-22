@@ -29,7 +29,9 @@ class _CustomSliverAppBarState extends State<CustomSliverAppBar> {
       pinned: false,
       floating: true,
       elevation: 3,
-      toolbarHeight: context.width * 0.27,
+      toolbarHeight: MediaQuery.of(context).orientation == Orientation.portrait
+          ? context.width * 0.27
+          : context.width * 0.12,
       flexibleSpace: SafeArea(
         // padding: EdgeInsets.fromLTRB(context.w16, context.height * 0.05, context.w16, context.h8),
         child: Column(
@@ -39,7 +41,7 @@ class _CustomSliverAppBarState extends State<CustomSliverAppBar> {
                 Expanded(
                   child: ConstrainedBox(
                     constraints: BoxConstraints(
-                      maxHeight: context.height * 0.048,
+                      maxHeight: context.height * 0.055,
                       minHeight: context.height * 0.040,
                     ),
                     child: TextField(
@@ -76,7 +78,7 @@ class _CustomSliverAppBarState extends State<CustomSliverAppBar> {
             SizedBox(height: context.h16),
             ConstrainedBox(
               constraints: BoxConstraints(
-                maxHeight: context.height * 0.050,
+                maxHeight: context.height * 0.90,
                 minHeight: context.height * 0.035,
               ),
               child: Row(

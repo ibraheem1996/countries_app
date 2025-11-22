@@ -24,19 +24,17 @@ class DioFactory {
     _dio = Dio(options);
 
     if (kDebugMode) {
-      // _dio!.interceptors.add(
-      //   PrettyDioLogger(
-      //     requestHeader: true,
-      //     requestBody: true,
-      //     responseBody: true,
-      //     responseHeader: false,
-      //     error: true,
-      //     compact: true,
-      //     maxWidth: 120,
-      //   ),
-
-      // );
-     
+      _dio!.interceptors.add(
+        PrettyDioLogger(
+          requestHeader: true,
+          requestBody: true,
+          responseBody: true,
+          responseHeader: false,
+          error: true,
+          compact: true,
+          maxWidth: 120,
+        ),
+      );
     }
     _dio!.interceptors.add(AppInterceptor());
 
