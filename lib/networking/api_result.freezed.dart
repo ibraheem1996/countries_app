@@ -122,10 +122,10 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( T data)?  success,TResult Function( Failure failure)?  error,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( T data,  DataSource source)?  success,TResult Function( Failure failure)?  error,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case Success() when success != null:
-return success(_that.data);case Error() when error != null:
+return success(_that.data,_that.source);case Error() when error != null:
 return error(_that.failure);case _:
   return orElse();
 
@@ -144,10 +144,10 @@ return error(_that.failure);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( T data)  success,required TResult Function( Failure failure)  error,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( T data,  DataSource source)  success,required TResult Function( Failure failure)  error,}) {final _that = this;
 switch (_that) {
 case Success():
-return success(_that.data);case Error():
+return success(_that.data,_that.source);case Error():
 return error(_that.failure);case _:
   throw StateError('Unexpected subclass');
 
@@ -165,10 +165,10 @@ return error(_that.failure);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( T data)?  success,TResult? Function( Failure failure)?  error,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( T data,  DataSource source)?  success,TResult? Function( Failure failure)?  error,}) {final _that = this;
 switch (_that) {
 case Success() when success != null:
-return success(_that.data);case Error() when error != null:
+return success(_that.data,_that.source);case Error() when error != null:
 return error(_that.failure);case _:
   return null;
 
@@ -181,10 +181,11 @@ return error(_that.failure);case _:
 
 
 class Success<T> implements ApiResult<T> {
-  const Success(this.data);
+  const Success(this.data, {this.source = DataSource.remote});
   
 
  final  T data;
+@JsonKey() final  DataSource source;
 
 /// Create a copy of ApiResult
 /// with the given fields replaced by the non-null parameter values.
@@ -196,16 +197,16 @@ $SuccessCopyWith<T, Success<T>> get copyWith => _$SuccessCopyWithImpl<T, Success
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Success<T>&&const DeepCollectionEquality().equals(other.data, data));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Success<T>&&const DeepCollectionEquality().equals(other.data, data)&&(identical(other.source, source) || other.source == source));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(data));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(data),source);
 
 @override
 String toString() {
-  return 'ApiResult<$T>.success(data: $data)';
+  return 'ApiResult<$T>.success(data: $data, source: $source)';
 }
 
 
@@ -216,7 +217,7 @@ abstract mixin class $SuccessCopyWith<T,$Res> implements $ApiResultCopyWith<T, $
   factory $SuccessCopyWith(Success<T> value, $Res Function(Success<T>) _then) = _$SuccessCopyWithImpl;
 @useResult
 $Res call({
- T data
+ T data, DataSource source
 });
 
 
@@ -233,10 +234,11 @@ class _$SuccessCopyWithImpl<T,$Res>
 
 /// Create a copy of ApiResult
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? data = freezed,}) {
+@pragma('vm:prefer-inline') $Res call({Object? data = freezed,Object? source = null,}) {
   return _then(Success<T>(
 freezed == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
-as T,
+as T,source: null == source ? _self.source : source // ignore: cast_nullable_to_non_nullable
+as DataSource,
   ));
 }
 

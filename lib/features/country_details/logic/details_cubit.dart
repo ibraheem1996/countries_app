@@ -17,7 +17,7 @@ class DetailsCubit extends Cubit<DetailsState> {
     emit(const DetailsState.loading());
     final result = await detailsUseCase(cca3);
     result.when(
-      success: (data) {
+      success: (data, source) {
         if (!isClosed) {
           emit(DetailsState.loaded(data));
         }

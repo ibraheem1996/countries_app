@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
             error: (e) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(e.failure.message ),
+                  content: Text(e.failure.message),
                   behavior: SnackBarBehavior.floating,
                   backgroundColor: Colors.redAccent.shade200,
                   duration: const Duration(seconds: 3),
@@ -39,18 +39,20 @@ class _HomePageState extends State<HomePage> {
           );
         },
         builder: (context, state) {
-          return state.when(
-            initial: () => const SizedBox.shrink(),
-            loading: () => const Center(child: CircularProgressIndicator()),
-            error: (error) => RetryWidget(message: error.message, icon: error.icon!),
-            loaded: (countries) => CustomScrollView(
+          return state.map(
+            initial: (_) => const SizedBox.shrink(),
+            loading: (_) => const Center(child: CircularProgressIndicator()),
+            error: (error) =>
+                RetryWidget(message: error.failure.message, icon: error.failure.icon!),
+            loaded: (loaded) => CustomScrollView(
               physics: const BouncingScrollPhysics(),
               slivers: [
                 CustomSliverAppBar(
                   onSearchChanged: (value) => context.read<HomeCubit>().search(value!),
                   onFilterChanged: (filter) => context.read<HomeCubit>().setFilter(filter),
+                  dataSource: loaded.source,
                 ),
-                GridViewBuilder(countries: countries),
+                GridViewBuilder(countries: loaded.modeles),
               ],
             ),
           );

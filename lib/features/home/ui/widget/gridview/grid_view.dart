@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../coor/dependency/dependency_get_it.dart';
 import '../../../../country_details/logic/details_cubit.dart';
 import '../../../../country_details/ui/country_details_view.dart';
-import '../../../domain/entities.dart';
+import '../../../domain/entities/entities.dart';
 import 'animated_card.dart';
 import 'build_country_card.dart';
 import 'build_flag.dart';

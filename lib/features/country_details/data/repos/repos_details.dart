@@ -6,6 +6,7 @@ import 'package:countries/features/country_details/data/model/details_model.dart
 
 import '../../../../networking/api_result.dart';
 import '../../../../networking/error_handler.dart';
+import '../../../home/logic/home_cubit.dart';
 import '../../doman/entities.dart';
 import '../../doman/repository.dart';
 import '../data_sourse/remote_details_data_sourse.dart';
@@ -24,14 +25,14 @@ class DetailsReposImpl implements DetailsRepository {
       final json = result.map((e) => e.toJson()).toList();
       await localDetailsDataSourse.save(detailsModel: jsonEncode(json), theKey: cca3);
       final entities = result.map((e)=> e.toEntity()).toList();
-      return ApiResult.success(entities);
+      return ApiResult.success(entities, source: DataSource.remote);
     } catch (e) {
         if ( cached != null && cached.isNotEmpty) {
           final List decoded = jsonDecode(cached);
           final cachedModels = decoded.map<DetailsModel>((e) => DetailsModel.fromJson(e)).toList();
       final entities = cachedModels.map((e) => e.toEntity()).toList();
 
-          return ApiResult.success(entities);
+          return ApiResult.success(entities, source: DataSource.local);
         }
       return ApiResult.error(ErrorHandler.handle(e));
     }
