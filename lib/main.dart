@@ -46,8 +46,8 @@ void main() {
           minimumFetchInterval: const Duration(minutes: 1),
         ),
       );
-
-      await remoteConfig.fetchAndActivate();
+        
+       unawaited(remoteConfig.fetchAndActivate());
 
 
       runApp(BlocProvider(create: (context) => ThemeCubit(), child: const MyApp()));

@@ -4,15 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../coor/theme/theme_cubit.dart';
+import '../../logic/home_cubit.dart';
 
 class CustomSliverAppBar extends StatefulWidget {
   final void Function(String? value) onSearchChanged;
   final void Function(String? value) onFilterChanged;
+  final DataSource? dataSource;
 
   const CustomSliverAppBar({
     super.key,
     required this.onSearchChanged,
     required this.onFilterChanged,
+    this.dataSource,
   });
 
   @override
@@ -25,17 +28,33 @@ class _CustomSliverAppBarState extends State<CustomSliverAppBar> {
 
   @override
   Widget build(BuildContext context) {
+    final shouldShowIndicator = widget.dataSource == DataSource.local;
+
+    double toolbarHeight() {
+      final portrait = MediaQuery.of(context).orientation == Orientation.portrait;
+      final landscape = MediaQuery.of(context).orientation == Orientation.landscape;
+      if (portrait && widget.dataSource == DataSource.local) {
+        return context.width * 0.40;
+      } else if (landscape && widget.dataSource == DataSource.local) {
+        return context.width * 0.20;
+      } else if (portrait && widget.dataSource == DataSource.remote) {
+        return context.width * 0.27;
+      } else if (landscape && widget.dataSource == DataSource.remote) {
+        return context.width * 0.12;
+      }
+      return 0;
+    }
+
     return SliverAppBar(
       pinned: false,
       floating: true,
       elevation: 3,
-      toolbarHeight: MediaQuery.of(context).orientation == Orientation.portrait
-          ? context.width * 0.27
-          : context.width * 0.12,
+      toolbarHeight: toolbarHeight(),
+
       flexibleSpace: SafeArea(
-        // padding: EdgeInsets.fromLTRB(context.w16, context.height * 0.05, context.w16, context.h8),
         child: Column(
           children: [
+            if (shouldShowIndicator) _buildDataSourceIndicator(context),
             Row(
               children: [
                 Expanded(
@@ -88,8 +107,6 @@ class _CustomSliverAppBarState extends State<CustomSliverAppBar> {
                   return ChoiceChip(
                     backgroundColor: context.scheme.surfaceContainerLowest,
                     shape: const StadiumBorder(),
-
-                    // const RoundedRectangleBorder(borderRadius: AppRadius.r8),
                     label: Text(
                       filters[index],
                       style: TextStyle(
@@ -115,6 +132,46 @@ class _CustomSliverAppBarState extends State<CustomSliverAppBar> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildDataSourceIndicator(BuildContext context) {
+    final isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+    final screenWidth = context.width;
+    final screenHeight = context.height;
+
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.04, vertical: screenHeight * 0.01),
+      padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.03, vertical: screenHeight * 0.012),
+      decoration: BoxDecoration(
+        color: context.scheme.errorContainer.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(screenWidth * 0.02), // 2% من العرض
+        border: Border.all(color: context.scheme.errorContainer.withValues(alpha: 0.3), width: 1),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.wifi_off_rounded,
+            size: isPortrait ? screenHeight * 0.02 : screenWidth * 0.04,
+            color: context.scheme.errorContainer,
+          ),
+          SizedBox(width: screenWidth * 0.02),
+          Flexible(
+            child: Text(
+              'You are currently viewing local data. Some features may not work as expected.',
+              style: TextStyle(
+                fontSize: isPortrait ? screenHeight * 0.016 : screenWidth * 0.03,
+                fontWeight: FontWeight.w500,
+                color: context.scheme.onErrorContainer,
+              ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ],
       ),
     );
   }

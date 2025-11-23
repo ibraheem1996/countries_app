@@ -1,7 +1,7 @@
 import 'package:countries/coor/helper/extension.dart';
 import 'package:flutter/material.dart';
 
-import '../../../domain/entities.dart';
+import '../../../domain/entities/entities.dart';
 
 Widget buildNameAndCode(Country country, BuildContext context) {
   final subName = country.capital =="" ? country.region :  country.capital;

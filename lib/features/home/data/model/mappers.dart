@@ -1,5 +1,5 @@
 
-import '../../domain/entities.dart';
+import '../../domain/entities/entities.dart';
 import 'model.dart';
 
 extension HomeModelMapper on HomeModel {

@@ -1,5 +1,5 @@
 import 'package:countries/networking/api_result.dart';
-import 'entities.dart';
+import '../entities/entities.dart';
 
 abstract class HomeRepository {
   Future<ApiResult<List<Country>>> getCountries();

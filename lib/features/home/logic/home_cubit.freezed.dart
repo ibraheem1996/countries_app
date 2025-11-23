@@ -128,12 +128,12 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<Country> modeles)?  loaded,TResult Function( Failure failure)?  error,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<Country> modeles,  DataSource source)?  loaded,TResult Function( Failure failure)?  error,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case Loading() when loading != null:
 return loading();case Loaded() when loaded != null:
-return loaded(_that.modeles);case Error() when error != null:
+return loaded(_that.modeles,_that.source);case Error() when error != null:
 return error(_that.failure);case _:
   return orElse();
 
@@ -152,12 +152,12 @@ return error(_that.failure);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<Country> modeles)  loaded,required TResult Function( Failure failure)  error,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<Country> modeles,  DataSource source)  loaded,required TResult Function( Failure failure)  error,}) {final _that = this;
 switch (_that) {
 case _Initial():
 return initial();case Loading():
 return loading();case Loaded():
-return loaded(_that.modeles);case Error():
+return loaded(_that.modeles,_that.source);case Error():
 return error(_that.failure);case _:
   throw StateError('Unexpected subclass');
 
@@ -175,12 +175,12 @@ return error(_that.failure);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<Country> modeles)?  loaded,TResult? Function( Failure failure)?  error,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<Country> modeles,  DataSource source)?  loaded,TResult? Function( Failure failure)?  error,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case Loading() when loading != null:
 return loading();case Loaded() when loaded != null:
-return loaded(_that.modeles);case Error() when error != null:
+return loaded(_that.modeles,_that.source);case Error() when error != null:
 return error(_that.failure);case _:
   return null;
 
@@ -257,7 +257,7 @@ String toString() {
 
 
 class Loaded implements HomeState {
-  const Loaded(final  List<Country> modeles): _modeles = modeles;
+  const Loaded(final  List<Country> modeles, {this.source = DataSource.remote}): _modeles = modeles;
   
 
  final  List<Country> _modeles;
@@ -267,6 +267,7 @@ class Loaded implements HomeState {
   return EqualUnmodifiableListView(_modeles);
 }
 
+@JsonKey() final  DataSource source;
 
 /// Create a copy of HomeState
 /// with the given fields replaced by the non-null parameter values.
@@ -278,16 +279,16 @@ $LoadedCopyWith<Loaded> get copyWith => _$LoadedCopyWithImpl<Loaded>(this, _$ide
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Loaded&&const DeepCollectionEquality().equals(other._modeles, _modeles));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Loaded&&const DeepCollectionEquality().equals(other._modeles, _modeles)&&(identical(other.source, source) || other.source == source));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_modeles));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_modeles),source);
 
 @override
 String toString() {
-  return 'HomeState.loaded(modeles: $modeles)';
+  return 'HomeState.loaded(modeles: $modeles, source: $source)';
 }
 
 
@@ -298,7 +299,7 @@ abstract mixin class $LoadedCopyWith<$Res> implements $HomeStateCopyWith<$Res> {
   factory $LoadedCopyWith(Loaded value, $Res Function(Loaded) _then) = _$LoadedCopyWithImpl;
 @useResult
 $Res call({
- List<Country> modeles
+ List<Country> modeles, DataSource source
 });
 
 
@@ -315,10 +316,11 @@ class _$LoadedCopyWithImpl<$Res>
 
 /// Create a copy of HomeState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? modeles = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? modeles = null,Object? source = null,}) {
   return _then(Loaded(
 null == modeles ? _self._modeles : modeles // ignore: cast_nullable_to_non_nullable
-as List<Country>,
+as List<Country>,source: null == source ? _self.source : source // ignore: cast_nullable_to_non_nullable
+as DataSource,
   ));
 }
 

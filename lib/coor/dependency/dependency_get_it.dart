@@ -11,8 +11,9 @@ import '../../features/country_details/doman/use_cases.dart';
 import '../../features/home/data/data_source/local_home_data_source.dart';
 import '../../features/home/data/data_source/remote_home_data_source.dart';
 import '../../features/home/data/repos/home_repos_impl.dart';
-import '../../features/home/domain/repository.dart';
-import '../../features/home/domain/use_cases.dart';
+import '../../features/home/domain/repository/repository.dart';
+import '../../features/home/domain/usecases/get_countries_api.dart';
+import '../../features/home/domain/usecases/get_countries_local.dart';
 import '../../networking/dio_factory.dart';
 
 import '../../features/home/logic/home_cubit.dart';
@@ -52,13 +53,17 @@ Future<void> setupGetIt() async {
   );
 
     //!HOME UseCases
-  getIt.registerFactory<GetCountriesHomeUseCase>(
-    () => GetCountriesHomeUseCase(homeRepos: getIt<HomeRepository>()),
+  getIt.registerLazySingleton<GetCountriesRemoteHomeUseCase>(
+    () => GetCountriesRemoteHomeUseCase(homeRepos: getIt<HomeRepository>()),
+  );
+  getIt.registerLazySingleton<GetCountriesLocalHomeUseCase>(
+    () => GetCountriesLocalHomeUseCase(homeRepos: getIt<HomeRepository>()),
   );
 
 
   //!HOME Cubit
-  getIt.registerFactory<HomeCubit>(() => HomeCubit(countriesUseCase: getIt<GetCountriesHomeUseCase>()));
+  getIt.registerFactory<HomeCubit>(() => HomeCubit(
+      getcountriesRemoteUseCase: getIt<GetCountriesRemoteHomeUseCase>(), getCountriesLocalHomeUseCase: getIt<GetCountriesLocalHomeUseCase>()));
 
 
   //!================ Details===============================
