@@ -20,6 +20,7 @@ class HomeRepositoryImpl implements HomeRepository {
   Future<ApiResult<List<Country>>> getCountries() async {
     try {
       final List<HomeModel> dtos = await api.getHomeData();
+      print("json $dtos");
       final data = dtos.map((e) => e.toJson()).toList();
       await localDataSource.save(jsonEncode(data));
       final entities = dtos.map((e) => e.toEntity()).toList();
