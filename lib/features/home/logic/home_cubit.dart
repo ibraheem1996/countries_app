@@ -67,10 +67,25 @@ class HomeCubit extends Cubit<HomeState> {
     _applyFilter();
   }
 
-  void _applyFilter() {
-    final q = _query;
+  String normalizeNumber(String input) {
+    var x = input
+        .replaceAll("+", "")
+        .replaceAll(" ", "")
+        .replaceAll("-", "")
+        .replaceAll("(", "")
+        .replaceAll(")", "")
+        .trim();
 
-    if (q.isEmpty) {
+    if (x.startsWith("00")) {
+      x = x.substring(2);
+    }
+
+    return x;
+  }
+
+  void _applyFilter() {
+
+    if (_query.isEmpty) {
       final currentSource = state.maybeMap(
         loaded: (loaded) => loaded.source,
         orElse: () => DataSource.remote,
@@ -80,15 +95,21 @@ class HomeCubit extends Cubit<HomeState> {
     }
 
     final filtered = _allCountries.where((country) {
-      final query = q.toLowerCase();
+      final query = _query.toLowerCase();
 
       bool swc(String? s) => s?.toLowerCase().startsWith(query) ?? false;
 
       switch (_currentFilter) {
         case 'Code':
-          final codeString = country.callingCodes.join('');
+          final normalizedQuery = normalizeNumber(query);
 
-          return swc(codeString) || swc(country.cca2) || swc(country.cca3);
+          final normalizedCountryCodes = country.callingCodes
+              .map((c) => normalizeNumber(c))
+              .toList();
+
+          final match = normalizedCountryCodes.any((c) => c.startsWith(normalizedQuery));
+
+          return match || swc(country.cca2) || swc(country.cca3);
 
         case 'Capital':
           return swc(country.capital);
