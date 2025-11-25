@@ -7,33 +7,29 @@ part of 'model.dart';
 // **************************************************************************
 
 HomeModel _$HomeModelFromJson(Map<String, dynamic> json) => HomeModel(
-  name: json['name'] as String?,
+  name: json['name'],
+  capital: json['capital'],
   flags: json['flags'] == null
       ? null
       : Flags.fromJson(json['flags'] as Map<String, dynamic>),
-  alpha2Code: json['alpha2Code'] as String?,
-  alpha3Code: json['alpha3Code'] as String?,
+  cca2: json['cca2'] as String?,
+  cca3: json['cca3'] as String?,
   region: json['region'] as String?,
   subregion: json['subregion'] as String?,
-  capital: json['capital'] as String?,
-  languages: (json['languages'] as List<dynamic>?)
-      ?.map((e) => Map<String, String>.from(e as Map))
-      .toList(),
-  callingCodes: (json['callingCodes'] as List<dynamic>?)
-      ?.map((e) => e as String)
-      .toList(),
+  languages: json['languages'],
+  idd: json['idd'],
 );
 
 Map<String, dynamic> _$HomeModelToJson(HomeModel instance) => <String, dynamic>{
   'name': instance.name,
   'capital': instance.capital,
   'flags': instance.flags,
-  'alpha2Code': instance.alpha2Code,
-  'alpha3Code': instance.alpha3Code,
+  'cca2': instance.cca2,
+  'cca3': instance.cca3,
   'region': instance.region,
   'subregion': instance.subregion,
   'languages': instance.languages,
-  'callingCodes': instance.callingCodes,
+  'idd': instance.idd,
 };
 
 Flags _$FlagsFromJson(Map<String, dynamic> json) =>

@@ -12,7 +12,7 @@ part of 'remote_home_data_source.dart';
 
 class _RemoteHomeDataSource implements RemoteHomeDataSource {
   _RemoteHomeDataSource(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'https://www.apicountries.com/';
+    baseUrl ??= 'https://restcountries.com/v3.1/';
   }
 
   final Dio _dio;
@@ -31,7 +31,7 @@ class _RemoteHomeDataSource implements RemoteHomeDataSource {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'countries',
+            'all?fields=name,flags,cca2,cca3,idd,capital,languages',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -44,7 +44,7 @@ class _RemoteHomeDataSource implements RemoteHomeDataSource {
           .map((dynamic i) => HomeModel.fromJson(i as Map<String, dynamic>))
           .toList();
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, _result);
       rethrow;
     }
     return _value;

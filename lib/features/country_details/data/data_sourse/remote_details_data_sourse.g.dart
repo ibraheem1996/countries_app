@@ -44,7 +44,7 @@ class _RemoteDetailsDataSourse implements RemoteDetailsDataSourse {
           .map((dynamic i) => DetailsModel.fromJson(i as Map<String, dynamic>))
           .toList();
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, _result);
       rethrow;
     }
     return _value;
