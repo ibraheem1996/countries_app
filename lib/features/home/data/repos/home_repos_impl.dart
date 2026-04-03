@@ -20,7 +20,6 @@ class HomeRepositoryImpl implements HomeRepository {
   Future<ApiResult<List<Country>>> getCountries() async {
     try {
       final List<HomeModel> dtos = await api.getHomeData();
-      print("json $dtos");
       final data = dtos.map((e) => e.toJson()).toList();
       await localDataSource.save(jsonEncode(data));
       final entities = dtos.map((e) => e.toEntity()).toList();
@@ -43,9 +42,14 @@ class HomeRepositoryImpl implements HomeRepository {
     if (cached == null) {
       return Future.value(null);
     }
-    final List<HomeModel> decode = (jsonDecode(cached) as List)
-        .map<HomeModel>((e) => HomeModel.fromJson(e))
-        .toList();
-    return decode.map((e) => e.toEntity()).toList();
+    try {
+      final List<HomeModel> decode = (jsonDecode(cached) as List)
+          .map<HomeModel>((e) => HomeModel.fromJson(e))
+          .toList();
+      return decode.map((e) => e.toEntity()).toList();
+    } catch (e) {
+      // Return null if cache is malformed
+      return null;
+    }
   }
 }

@@ -43,10 +43,10 @@ class _CountryDetailsPageState extends State<CountryDetailsPage> {
             loading: () => const Center(child: CircularProgressIndicator()),
             error: (e) => Center(child: Text(e.message)),
             loaded: (detailsModel) {
-              if (detailsModel?.first == null) {
+              if (detailsModel == null || detailsModel.isEmpty) {
                 return const Center(child: Text('No data', style: TextStyle(fontSize: 20)));
               }
-              final data = detailsModel!.first;
+              final data = detailsModel.first;
               return CustomScrollView(
                 slivers: [
                   DetailsHeader(data: data),
@@ -79,7 +79,7 @@ class _CountryDetailsPageState extends State<CountryDetailsPage> {
                           const SizedBox(height: 16),
                           SectionPeople(data: data),
                           const SizedBox(height: 16),
-                          CountryLocation(data: data,),
+                          CountryLocation(data: data),
                         ],
                       ),
                     ),
